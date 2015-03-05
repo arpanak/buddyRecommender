@@ -21,6 +21,10 @@ import com.recommender.core.Recommender;
  */
 public class RecommenderServlet extends HttpServlet
 {
+	private static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 3;
+	private static final String JOINEE_TEAM = "team";
+	private static final String JOINEE_EXPERIENCE = "experience";
+	private static final String JOINEE_SKILLS = "skills";
 	private static final String TEXT_HTML = "text/html";
 	private static final String PREVIOUS_ORGANIZATIONS = "previousOrganizations";
 	private static final String JOINEE_COLLEGE = "college";
@@ -41,13 +45,24 @@ public class RecommenderServlet extends HttpServlet
 		String place = request.getParameter(JOINEE_PLACE);
 		String college = request.getParameter(JOINEE_COLLEGE);
 		String previousOrgs = request.getParameter(PREVIOUS_ORGANIZATIONS);
+		String skills = request.getParameter(JOINEE_SKILLS);
+		String experience = request.getParameter(JOINEE_EXPERIENCE);
+		String team = request.getParameter(JOINEE_TEAM);
 		List<String> previousOrgsList = Arrays.asList(previousOrgs.split(","));
-		Joinee newJoinee = new Joinee(name, place, college, previousOrgsList);
-		
+		List<String> skillsList = Arrays.asList(skills.split(","));
+		int exp = Integer.parseInt(experience);
+
+		Joinee newJoinee = new Joinee(name, place, college, previousOrgsList, skillsList, exp, team);
+
+		getRecommendationsAndReturnResponse(newJoinee, response);
+	}
+
+	private void getRecommendationsAndReturnResponse(Joinee newJoinee, HttpServletResponse response)
+	{
 		List<Employee> recommendedEmployees = new ArrayList<Employee>();
 		try
 		{
-			recommendedEmployees = Recommender.getRecommendations(newJoinee);
+			recommendedEmployees = Recommender.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
 			PrintWriter responseWriter = response.getWriter();
 			response.setContentType(TEXT_HTML);
 			responseWriter.print(getResponseAsString(recommendedEmployees));
@@ -62,7 +77,7 @@ public class RecommenderServlet extends HttpServlet
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
 		String response = "<h2>Recommended employees: </h2><br/><br/>";
-		for(Employee recommendedEmployee : recommendedEmployees)
+		for (Employee recommendedEmployee : recommendedEmployees)
 		{
 			response = response + recommendedEmployee.toString() + "<br/><br/>";
 		}

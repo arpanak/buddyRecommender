@@ -11,8 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 
 /**
- * Contains logic to retrieve data from persistent sources and return object
- * representations of data.
+ * Contains logic to retrieve data from csv and return object representations of
+ * data.
  * 
  * @author AshwinV
  */
@@ -22,11 +22,12 @@ public class PersistenceManager
 	static
 	{
 		/*
-		 * Initialize default logger settings
+		 * Initialize default logger settings - should configure property file
+		 * with log4j settings
 		 */
 		BasicConfigurator.configure();
 	}
-	
+
 	private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
 
 	/**
@@ -38,9 +39,9 @@ public class PersistenceManager
 	{
 		final String[] columns = new String[] { "name", "gender", "graduateDegree", "graduateStream", "graduateInstitute",
 				"graduateYear", "postGraduateDegree", "postGraduateStream", "postGraduateInstitute", "postGraduateYear",
-				"jobFunction", "currentTeam", "hr", "reportingManager", "seniorManager", "joiningDate", "experience",
-				"workingWithUsSince", "careerLevel", "currentDesignation"};
-		
+				"jobFunction", "currentTeam", "hr", "reportingManager", "seniorManager", "joiningDate",
+				"experienceCalculatedAsOf", "workingWithUsSince", "careerLevel", "currentDesignation" };
+
 		CsvBeanMapper<Employee, Employee> mapper = new CsvBeanMapper<Employee, Employee>();
 		String csvFile;
 		try

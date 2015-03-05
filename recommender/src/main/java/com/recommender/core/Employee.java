@@ -26,7 +26,7 @@ public class Employee
 	private String reportingManager;
 	private String seniorManager;
 	private String joiningDate;
-	private String experience;
+	private String experienceCalculatedAsOf;
 	private String workingWithUsSince;
 	private String careerLevel;
 	private String currentDesignation;
@@ -161,11 +161,11 @@ public class Employee
 	}
 	public String getExperience()
 	{
-		return experience;
+		return experienceCalculatedAsOf;
 	}
 	public void setExperience(String experience)
 	{
-		this.experience = experience;
+		this.experienceCalculatedAsOf = experience;
 	}
 	public String getWorkingWithUsSince()
 	{
@@ -201,7 +201,7 @@ public class Employee
 				+ ", postGraduateInstitute=" + postGraduateInstitute + ", postGraduateYear=" + postGraduateYear
 				+ ", jobFunction=" + jobFunction + ", currentTeam=" + currentTeam + ", hr=" + hr + ", reportingManager="
 				+ reportingManager + ", seniorManager=" + seniorManager + ", joiningDate=" + joiningDate + ", experience="
-				+ experience + ", workingWithUsSince=" + workingWithUsSince + ", careerLevel=" + careerLevel
+				+ experienceCalculatedAsOf + ", workingWithUsSince=" + workingWithUsSince + ", careerLevel=" + careerLevel
 				+ ", currentDesignation=" + currentDesignation + "]";
 	}
 	
