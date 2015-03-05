@@ -21,6 +21,7 @@ import com.recommender.core.Recommender;
  */
 public class RecommenderServlet extends HttpServlet
 {
+	private static final String TEXT_HTML = "text/html";
 	private static final String PREVIOUS_ORGANIZATIONS = "previousOrganizations";
 	private static final String JOINEE_COLLEGE = "college";
 	private static final String JOINEE_PLACE = "place";
@@ -48,6 +49,7 @@ public class RecommenderServlet extends HttpServlet
 		{
 			recommendedEmployees = Recommender.getRecommendations(newJoinee);
 			PrintWriter responseWriter = response.getWriter();
+			response.setContentType(TEXT_HTML);
 			responseWriter.print(getResponseAsString(recommendedEmployees));
 			IOUtils.closeQuietly(responseWriter);
 		}
@@ -59,7 +61,7 @@ public class RecommenderServlet extends HttpServlet
 
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
-		String response = "Recommended employees: <br/><br/>";
+		String response = "<h2>Recommended employees: </h2><br/><br/>";
 		for(Employee recommendedEmployee : recommendedEmployees)
 		{
 			response = response + recommendedEmployee.toString() + "<br/><br/>";

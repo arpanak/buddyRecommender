@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  * Contains logic to retrieve data from persistent sources and return object
@@ -18,12 +19,15 @@ import org.apache.commons.lang.StringUtils;
 public class PersistenceManager
 {
 
-	private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
-
-	public static void main(String[] args)
+	static
 	{
-		System.out.println(getAllEmployees());
+		/*
+		 * Initialize default logger settings
+		 */
+		BasicConfigurator.configure();
 	}
+	
+	private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
 
 	/**
 	 * Get list of Employee instances corresponding to existing employees.

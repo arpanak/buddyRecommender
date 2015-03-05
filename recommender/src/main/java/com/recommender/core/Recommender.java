@@ -24,10 +24,7 @@ public class Recommender
 	{
 		List<Employee> recommendations = new ArrayList<Employee>();
 		List<Employee> existingEmployees = PersistenceManager.getAllEmployees();
-		for (Employee existingEmployee : existingEmployees)
-		{
-			//perform recommendation logic
-		}
+		recommendations.addAll(existingEmployees);
 		return recommendations;
 	}
 }

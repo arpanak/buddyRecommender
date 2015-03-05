@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Buddy lunch recommender application</display-name>
+  <display-name>Buddy recommender application</display-name>
   
   <servlet>
   	<servlet-name>recommender</servlet-name>
