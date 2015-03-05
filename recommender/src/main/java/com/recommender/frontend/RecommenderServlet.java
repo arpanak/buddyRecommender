@@ -76,7 +76,7 @@ public class RecommenderServlet extends HttpServlet
 
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
-		String response = "<h2>Recommended employees: </h2><br/><br/>";
+		String response = "<h3>Recommended employees: </h3><br/><br/>";
 		for (Employee recommendedEmployee : recommendedEmployees)
 		{
 			response = response + recommendedEmployee.toString() + "<br/><br/>";
