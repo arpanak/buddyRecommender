@@ -1,2 +1,2 @@
-# buddyLunchRecommender
-Recommend partners for buddy lunch
+# buddyRecommender
+Recommend a buddy for a new joiner
