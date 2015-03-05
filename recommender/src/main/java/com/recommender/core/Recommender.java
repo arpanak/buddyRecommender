@@ -20,7 +20,7 @@ public class Recommender
 	 * 2) Check any college match within team 
 	 * 3) No match found, checked same year pass out 
 	 */
-	public List<Employee> getRecommendations(Employee newJoinee) throws Exception
+	public static List<Employee> getRecommendations(Joinee newJoinee) throws Exception
 	{
 		List<Employee> recommendations = new ArrayList<Employee>();
 		List<Employee> existingEmployees = PersistenceManager.getAllEmployees();

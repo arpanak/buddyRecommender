@@ -17,6 +17,15 @@ public class Joinee
 	private String college;
 	private List<String> previousOrganizations;
 	
+	public Joinee(String name, String place, String college, List<String> previousOrganizations)
+	{
+		super();
+		this.name = name;
+		this.place = place;
+		this.college = college;
+		this.previousOrganizations = previousOrganizations;
+	}
+
 	public String getName()
 	{
 		return name;
