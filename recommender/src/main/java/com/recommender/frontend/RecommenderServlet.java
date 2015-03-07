@@ -22,9 +22,9 @@ import com.recommender.core.Recommender;
  */
 public class RecommenderServlet extends HttpServlet
 {
-	private static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 3;
+	private static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
 	private static final String JOINEE_TEAM = "team";
-	private static final String JOINEE_EXPERIENCE = "experience";
+	private static final String JOINEE_GRADUATION_YEAR = "passoutyear";
 	private static final String JOINEE_SKILLS = "skills";
 	private static final String TEXT_HTML = "text/html";
 	private static final String PREVIOUS_ORGANIZATIONS = "previousOrganizations";
@@ -47,13 +47,13 @@ public class RecommenderServlet extends HttpServlet
 		String college = request.getParameter(JOINEE_COLLEGE);
 		String previousOrgs = request.getParameter(PREVIOUS_ORGANIZATIONS);
 		String skills = request.getParameter(JOINEE_SKILLS);
-		String experience = request.getParameter(JOINEE_EXPERIENCE);
+		String yearOfGraduation = request.getParameter(JOINEE_GRADUATION_YEAR);
 		String team = request.getParameter(JOINEE_TEAM);
 		List<String> previousOrgsList = Arrays.asList(previousOrgs.split(","));
 		List<String> skillsList = Arrays.asList(skills.split(","));
-		int exp = Integer.parseInt(experience);
+		int graduationYear = Integer.parseInt(yearOfGraduation);
 
-		Joinee newJoinee = new Joinee(name, place, college, previousOrgsList, skillsList, exp, team);
+		Joinee newJoinee = new Joinee(name, place, college, previousOrgsList, skillsList, graduationYear, team);
 
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}
@@ -84,9 +84,10 @@ public class RecommenderServlet extends HttpServlet
 			int i = 1;
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{
-				response = response +""+i+ " Name: " + recommendedEmployee.getName() + "&nbsp;&nbsp;Current team: "
-						+ recommendedEmployee.getCurrentTeam() + "&nbsp;&nbsp;Colleges: " + recommendedEmployee.getGraduateInstitute()
-						+ ", " + recommendedEmployee.getPostGraduateInstitute() + "<br/><br/>";
+				response = response + "" + i + " Name: " + recommendedEmployee.getName() + "<br/>Current team: "
+						+ recommendedEmployee.getCurrentTeam() + "<br/>Colleges: "
+						+ recommendedEmployee.getGraduateInstitute() + ", " + recommendedEmployee.getPostGraduateInstitute()
+						+ "<br/>Graduate year: " + recommendedEmployee.getPostGraduateYear() + "<br/><br/>";
 				i++;
 			}
 		}

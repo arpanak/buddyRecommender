@@ -48,8 +48,8 @@
 				<td><input type="text" name="skills" /></td>
 			</tr>
 			<tr>
-				<td><label>Joinee's experience:</label></td>
-				<td><input type="text" name="experience" /></td>
+				<td><label>Joinee's year of graduation:</label></td>
+				<td><input type="text" name="passoutyear" /></td>
 			</tr>
 			<tr>
 				<td><label>Joinee's team:</label></td>

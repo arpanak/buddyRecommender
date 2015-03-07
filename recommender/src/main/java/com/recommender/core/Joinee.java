@@ -16,11 +16,11 @@ public class Joinee
 	private String college;
 	private List<String> previousOrganizations;
 	private List<String> skills;
-	private int experience;
+	private int yearOfGraduation;
 	private String team;
-
+	
 	public Joinee(String name, String place, String college, List<String> previousOrganizations, List<String> skills,
-			int experience, String team)
+			int yearOfGraduation, String team)
 	{
 		super();
 		this.name = name;
@@ -28,75 +28,61 @@ public class Joinee
 		this.college = college;
 		this.previousOrganizations = previousOrganizations;
 		this.skills = skills;
-		this.experience = experience;
+		this.yearOfGraduation = yearOfGraduation;
 		this.team = team;
 	}
-
 	public String getName()
 	{
 		return name;
 	}
-
 	public void setName(String name)
 	{
 		this.name = name;
 	}
-
 	public String getPlace()
 	{
 		return place;
 	}
-
 	public void setPlace(String place)
 	{
 		this.place = place;
 	}
-
 	public String getCollege()
 	{
 		return college;
 	}
-
 	public void setCollege(String college)
 	{
 		this.college = college;
 	}
-
 	public List<String> getPreviousOrganizations()
 	{
 		return previousOrganizations;
 	}
-
 	public void setPreviousOrganizations(List<String> previousOrganizations)
 	{
 		this.previousOrganizations = previousOrganizations;
 	}
-
 	public List<String> getSkills()
 	{
 		return skills;
 	}
-
 	public void setSkills(List<String> skills)
 	{
 		this.skills = skills;
 	}
-
-	public int getExperience()
+	public int getYearOfGraduation()
 	{
-		return experience;
+		return yearOfGraduation;
 	}
-
-	public void setExperience(int experience)
+	public void setYearOfGraduation(int yearOfGraduation)
 	{
-		this.experience = experience;
+		this.yearOfGraduation = yearOfGraduation;
 	}
-
 	public String getTeam()
 	{
 		return team;
 	}
-
 	public void setTeam(String team)
 	{
 		this.team = team;

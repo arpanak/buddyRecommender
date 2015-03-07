@@ -34,10 +34,13 @@ public class LuceneHelper
 {
 
 	/**
-	 * 1. add dropdown to columns and make ajax call to populate columns -
-	 * should query index 2. add priorities to runQuery - call boost(). verify
-	 * correctness of recommendations.
+	 * 1. fix correctness of query
+	 * 2. add dropdown to columns and make ajax call to populate columns - should query index 
+	 * 3. add priorities to runQuery - call boost(). verify correctness of recommendations.
 	 */
+	
+	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
+	
 	// 0. Specify the analyzer for tokenizing text.
 	// The same analyzer should be used for indexing and searching
 	private static StandardAnalyzer analyzer = new StandardAnalyzer();
@@ -46,6 +49,16 @@ public class LuceneHelper
 	private static Directory index = new RAMDirectory();
 	private static IndexReader reader = null;
 
+	static
+	{
+		//TODO priorities could be configured in properties file
+		propertyName2priority.put("currentTeam", 4f);
+		propertyName2priority.put("graduateInstitute", 3f);
+		propertyName2priority.put("postGraduateInstitute", 3f);
+		propertyName2priority.put("graduateYear", 1f);
+		propertyName2priority.put("postGraduateYear", 2f);
+	}
+	
 	public static void buildIndex(List<Employee> employees) throws Exception
 	{
 
@@ -80,7 +93,9 @@ public class LuceneHelper
 		{
 			try
 			{
-				doc.add(new TextField(property.getKey(), property.getValue(), Field.Store.YES));
+				TextField field = new TextField(property.getKey(), property.getValue(), Field.Store.YES);
+				field.setBoost(getBoost(property.getKey()));
+				doc.add(field);
 			}
 			catch (Exception ex)
 			{
@@ -88,6 +103,16 @@ public class LuceneHelper
 			}
 		}
 		w.addDocument(doc);
+	}
+	
+	private static Float getBoost(String propertyName)
+	{
+		Float boost = propertyName2priority.get(propertyName);
+		if(boost == null)
+		{
+			boost = 0.5f;
+		}
+		return boost;
 	}
 
 	// TODO indexReader should be kept open for fast queries

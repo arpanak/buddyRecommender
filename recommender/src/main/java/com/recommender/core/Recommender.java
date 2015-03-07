@@ -43,11 +43,14 @@ public class Recommender
 	{
 		String institute = newJoinee.getCollege();
 		String team = newJoinee.getTeam();
+		String graduationYear = newJoinee.getYearOfGraduation()+"";
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("graduateInstitute", institute);
 		filterMap.put("postGraduateInstitute", institute);
 		filterMap.put("currentTeam", team);
-		return LuceneHelper.runQuery(filterMap, 5);
+		filterMap.put("graduateYear", graduationYear);
+		filterMap.put("postGraduateYear", graduationYear);
+		return LuceneHelper.runQuery(filterMap, numRecommendationsRequired);
 	}
 
 }
