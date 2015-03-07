@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 
 /**
@@ -28,7 +28,7 @@ public class PersistenceManager
 		BasicConfigurator.configure();
 	}
 
-	private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
+	private static final String EXISTING_EMPLOYEES_CSV_FILE = "/Users/ashwinvinod/Documents/workspace/buddyRecommender/existingEmployees.csv";
 
 	/**
 	 * Get list of Employee instances corresponding to existing employees.

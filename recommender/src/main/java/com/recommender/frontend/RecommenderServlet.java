@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import com.recommender.core.Employee;
 import com.recommender.core.Joinee;
@@ -76,10 +77,22 @@ public class RecommenderServlet extends HttpServlet
 
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
-		String response = "<h3>Recommended employees: </h3><br/><br/>";
-		for (Employee recommendedEmployee : recommendedEmployees)
+		String response = "";
+		if (CollectionUtils.isNotEmpty(recommendedEmployees))
 		{
-			response = response + recommendedEmployee.toString() + "<br/><br/>";
+			response = "<h3>Recommended employees: </h3><br/><br/>";
+			int i = 1;
+			for (Employee recommendedEmployee : recommendedEmployees)
+			{
+				response = response +""+i+ " Name: " + recommendedEmployee.getName() + "&nbsp;&nbsp;Current team: "
+						+ recommendedEmployee.getCurrentTeam() + "&nbsp;&nbsp;Colleges: " + recommendedEmployee.getGraduateInstitute()
+						+ ", " + recommendedEmployee.getPostGraduateInstitute() + "<br/><br/>";
+				i++;
+			}
+		}
+		else
+		{
+			response = "<h3>Recommended employees: </h3><br/><br/>No employees found.";
 		}
 		return response;
 	}
