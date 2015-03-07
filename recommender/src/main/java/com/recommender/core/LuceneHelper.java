@@ -34,13 +34,12 @@ public class LuceneHelper
 {
 
 	/**
-	 * 1. fix correctness of query
-	 * 2. add dropdown to columns and make ajax call to populate columns - should query index 
-	 * 3. add priorities to runQuery - call boost(). verify correctness of recommendations.
+	 * add dropdown to columns and make ajax call
+	 * to populate columns - should query index
 	 */
-	
+
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
-	
+
 	// 0. Specify the analyzer for tokenizing text.
 	// The same analyzer should be used for indexing and searching
 	private static StandardAnalyzer analyzer = new StandardAnalyzer();
@@ -49,17 +48,13 @@ public class LuceneHelper
 	private static Directory index = new RAMDirectory();
 	private static IndexReader reader = null;
 
-	static
+	public static void initialize(List<Employee> employees, Map<String, Float> propertyName2priority) throws Exception
 	{
-		//TODO priorities could be configured in properties file
-		propertyName2priority.put("currentTeam", 4f);
-		propertyName2priority.put("graduateInstitute", 3f);
-		propertyName2priority.put("postGraduateInstitute", 3f);
-		propertyName2priority.put("graduateYear", 1f);
-		propertyName2priority.put("postGraduateYear", 2f);
+		buildIndex(employees);
+		LuceneHelper.propertyName2priority = propertyName2priority;
 	}
-	
-	public static void buildIndex(List<Employee> employees) throws Exception
+
+	private static void buildIndex(List<Employee> employees) throws Exception
 	{
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -104,11 +99,11 @@ public class LuceneHelper
 		}
 		w.addDocument(doc);
 	}
-	
+
 	private static Float getBoost(String propertyName)
 	{
 		Float boost = propertyName2priority.get(propertyName);
-		if(boost == null)
+		if (boost == null)
 		{
 			boost = 0.5f;
 		}
@@ -121,7 +116,6 @@ public class LuceneHelper
 		// 2. query
 		// the "title" arg specifies the default field to use
 		// when no field is explicitly specified in the query.
-		// Query q = new QueryParser("currentTeam", analyzer).parse(querystr);
 
 		BooleanQuery employeeQuery = new BooleanQuery();
 		for (Entry<String, String> filter : filterName2filterValue.entrySet())
@@ -144,7 +138,8 @@ public class LuceneHelper
 			int docId = hits[i].doc;
 			Document d = searcher.doc(docId);
 			recommendedEmployees.add(convertDocumentToEmployee(d));
-			System.out.println((i + 1) + ". " + d.get("name") + "\t" + d.get("graduateInstitute"));
+			System.out.println((i + 1) + ". " + d.get("name") + "\t" + d.get("graduateInstitute") + "\t"
+					+ d.get("currentTeam"));
 		}
 		return recommendedEmployees;
 	}
@@ -175,14 +170,5 @@ public class LuceneHelper
 		{
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) throws Exception
-	{
-		buildIndex(PersistenceManager.getAllEmployees());
-		Map<String, String> filterMap = new HashMap<String, String>();
-		filterMap.put("name", "ashwin");
-		filterMap.put("currentTeam", "step solution");
-		System.out.println(runQuery(filterMap, 100));
 	}
 }

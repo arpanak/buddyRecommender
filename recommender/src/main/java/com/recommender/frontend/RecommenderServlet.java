@@ -2,7 +2,6 @@ package com.recommender.frontend;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +24,8 @@ public class RecommenderServlet extends HttpServlet
 	private static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
 	private static final String JOINEE_TEAM = "team";
 	private static final String JOINEE_GRADUATION_YEAR = "passoutyear";
-	private static final String JOINEE_SKILLS = "skills";
 	private static final String TEXT_HTML = "text/html";
-	private static final String PREVIOUS_ORGANIZATIONS = "previousOrganizations";
 	private static final String JOINEE_COLLEGE = "college";
-	private static final String JOINEE_PLACE = "place";
 	private static final String JOINEE_NAME = "name";
 	private static final long serialVersionUID = -315225148153801990L;
 
@@ -43,17 +39,12 @@ public class RecommenderServlet extends HttpServlet
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 	{
 		String name = request.getParameter(JOINEE_NAME);
-		String place = request.getParameter(JOINEE_PLACE);
 		String college = request.getParameter(JOINEE_COLLEGE);
-		String previousOrgs = request.getParameter(PREVIOUS_ORGANIZATIONS);
-		String skills = request.getParameter(JOINEE_SKILLS);
 		String yearOfGraduation = request.getParameter(JOINEE_GRADUATION_YEAR);
 		String team = request.getParameter(JOINEE_TEAM);
-		List<String> previousOrgsList = Arrays.asList(previousOrgs.split(","));
-		List<String> skillsList = Arrays.asList(skills.split(","));
 		int graduationYear = Integer.parseInt(yearOfGraduation);
 
-		Joinee newJoinee = new Joinee(name, place, college, previousOrgsList, skillsList, graduationYear, team);
+		Joinee newJoinee = new Joinee(name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team);
 
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}

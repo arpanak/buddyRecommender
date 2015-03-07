@@ -12,19 +12,25 @@ import java.util.Map;
  * @author AshwinV
  * 
  */
-// TODO make matching less strict - e.g with lucene lookups
-// TODO make generic - with configurable priorities
 public class Recommender
 {
 
 	private static List<Employee> existingEmployees = new ArrayList<Employee>();
-	
+	// TODO priorities could be configured in properties file
+	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
+
 	static
 	{
 		existingEmployees = PersistenceManager.getAllEmployees();
 		try
 		{
-			LuceneHelper.buildIndex(existingEmployees);
+			propertyName2priority.put("currentTeam", 20f);
+			propertyName2priority.put("graduateInstitute", 10f);
+			propertyName2priority.put("postGraduateInstitute", 10f);
+			propertyName2priority.put("graduateYear", 8f);
+			propertyName2priority.put("postGraduateYear", 8f);
+
+			LuceneHelper.initialize(existingEmployees, propertyName2priority);
 		}
 		catch (Exception e)
 		{
@@ -43,7 +49,7 @@ public class Recommender
 	{
 		String institute = newJoinee.getCollege();
 		String team = newJoinee.getTeam();
-		String graduationYear = newJoinee.getYearOfGraduation()+"";
+		String graduationYear = newJoinee.getYearOfGraduation() + "";
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("graduateInstitute", institute);
 		filterMap.put("postGraduateInstitute", institute);
