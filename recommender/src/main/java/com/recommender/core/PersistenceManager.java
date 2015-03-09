@@ -28,7 +28,7 @@ public class PersistenceManager
 		BasicConfigurator.configure();
 	}
 
-	private static final String EXISTING_EMPLOYEES_CSV_FILE = "/Users/ashwinvinod/Documents/workspace/buddyRecommender/existingEmployees.csv";
+	private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
 
 	/**
 	 * Get list of Employee instances corresponding to existing employees.

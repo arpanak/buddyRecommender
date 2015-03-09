@@ -24,9 +24,9 @@ public class Recommender
 		existingEmployees = PersistenceManager.getAllEmployees();
 		try
 		{
-			propertyName2priority.put("currentTeam", 20f);
-			propertyName2priority.put("graduateInstitute", 10f);
-			propertyName2priority.put("postGraduateInstitute", 10f);
+			propertyName2priority.put("currentTeam", 40f);
+			propertyName2priority.put("graduateInstitute", 20f);
+			propertyName2priority.put("postGraduateInstitute", 20f);
 			propertyName2priority.put("graduateYear", 8f);
 			propertyName2priority.put("postGraduateYear", 8f);
 

@@ -120,7 +120,7 @@ public class LuceneHelper
 		BooleanQuery employeeQuery = new BooleanQuery();
 		for (Entry<String, String> filter : filterName2filterValue.entrySet())
 		{
-			Query q = new QueryParser(filter.getKey(), analyzer).parse(filter.getValue() + "~");
+			Query q = new QueryParser(filter.getKey(), analyzer).parse(filter.getValue());
 			employeeQuery.add(q, BooleanClause.Occur.SHOULD);
 		}
 
