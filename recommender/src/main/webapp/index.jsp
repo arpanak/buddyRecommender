@@ -41,6 +41,12 @@
 	<!-- header area -->
 	<header class="wrapper clearfix">
 
+		<div id="banner">
+			<div id="logo">
+				<a href="index.jsp"><img src="images/logo.png" alt="logo"></a>
+			</div>
+		</div>
+
 		<!-- main navigation -->
 		<nav id="topnav" role="navigation">
 			<div class="menu-toggle">Menu</div>
