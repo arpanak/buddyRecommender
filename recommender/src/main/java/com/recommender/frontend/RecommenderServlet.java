@@ -71,7 +71,7 @@ public class RecommenderServlet extends HttpServlet
 		String response = "";
 		if (CollectionUtils.isNotEmpty(recommendedEmployees))
 		{
-			response = "<h3>Recommended employees: </h3><br/><br/>";
+			response = "<h3>Recommended buddies: </h3><br/><br/>";
 			int i = 1;
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{

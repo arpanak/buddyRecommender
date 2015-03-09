@@ -19,7 +19,7 @@ public class Recommender
 	// TODO priorities could be configured in properties file
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
-	static
+	public static void initializeRecommender()
 	{
 		existingEmployees = PersistenceManager.getAllEmployees();
 		try
@@ -35,16 +35,9 @@ public class Recommender
 		catch (Exception e)
 		{
 			throw new RuntimeException(e.getMessage());
-		}
+		}	
 	}
-
-	/**
-	 * Recommendation logic:
-	 * 
-	 * Institute Team Skills Tenure Career Level Engagement score No. of buddies
-	 * assigned (one buddy should have max. 3 new joiners tagged for a month)
-	 * 
-	 */
+	
 	public static List<Employee> getRecommendations(Joinee newJoinee, int numRecommendationsRequired) throws Exception
 	{
 		String institute = newJoinee.getCollege();

@@ -13,5 +13,7 @@
   	<servlet-name>recommender</servlet-name>
   	<url-pattern>/recommender.do</url-pattern>
   </servlet-mapping>
-  
+  <listener>
+      <listener-class>com.recommender.frontend.RecommenderContextListener</listener-class>
+   </listener>
 </web-app>
