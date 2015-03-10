@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.recommender.frontend.RecommenderServlet;
 
 /**
  * 
@@ -52,4 +53,9 @@ public class Recommender
 		return LuceneHelper.runQuery(filterMap, numRecommendationsRequired);
 	}
 
+	public static List<Employee> getRecommendations(String college, String graduationYear, String team) throws Exception
+	{
+		Joinee newJoinee = new Joinee("", "", college, new ArrayList<String>(), new ArrayList<String>(), Integer.parseInt(graduationYear), team);
+		return Recommender.getRecommendations(newJoinee, RecommenderServlet.NUMBER_OF_RECOMMENDATIONS_REQUIRED);
+	}
 }

@@ -21,7 +21,7 @@ import com.recommender.core.Recommender;
  */
 public class RecommenderServlet extends HttpServlet
 {
-	private static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
+	public static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
 	private static final String JOINEE_TEAM = "team";
 	private static final String JOINEE_GRADUATION_YEAR = "passoutyear";
 	private static final String TEXT_HTML = "text/html";
@@ -71,16 +71,21 @@ public class RecommenderServlet extends HttpServlet
 		String response = "";
 		if (CollectionUtils.isNotEmpty(recommendedEmployees))
 		{
-			response = "<h3>Recommended buddies: </h3><br/><br/>";
+			response = "<h3>Recommended buddies: </h3><br/>";
+			response += "<table>";
+			response += "<th><td><b>No.</b></td><td><b>Name</b></td><td><b>Current Team</b></td><td><b>Colleges</b></td><td><b>Graduate Year</b></td></th>";
 			int i = 1;
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{
-				response = response + "" + i + " Name: " + recommendedEmployee.getName() + "<br/>Current team: "
-						+ recommendedEmployee.getCurrentTeam() + "<br/>Colleges: "
-						+ recommendedEmployee.getGraduateInstitute() + ", " + recommendedEmployee.getPostGraduateInstitute()
-						+ "<br/>Graduate year: " + recommendedEmployee.getPostGraduateYear() + "<br/><br/>";
+				response += "<tr class = \"row\">";
+				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>"
+						+ recommendedEmployee.getCurrentTeam() + "</td><td>"
+						+ recommendedEmployee.getPostGraduateInstitute()
+						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td>";
+				response += "</tr>";
 				i++;
 			}
+			response += "</table>";
 		}
 		else
 		{
