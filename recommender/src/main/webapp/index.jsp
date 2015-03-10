@@ -27,7 +27,16 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="js/flexslider/flexslider.css">
 <link rel="stylesheet" href="css/basic-style.css">
-
+<style>
+#responseContent td
+{
+background: #f3f3f3;
+border-bottom: 1px solid #e2e2e2;
+border-top: 1px solid #e2e2e2;
+padding-right: 15px;
+padding-left: 15px;
+}
+</style>
 <!-- end CSS-->
 
 <!-- JS-->
