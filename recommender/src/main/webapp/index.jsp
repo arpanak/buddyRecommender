@@ -95,21 +95,22 @@
 	<!-- main content area -->
 	<div id="main" class="wrapper">
 
-
+<span id="ajax_response" style="display: block;position:absolute"></span>
 		<br />
 		<form action="recommender.do" method="post" id="joineeDetailsForm">
+			
 			<table>
 				<tr>
 					<td><label>Joinee's college:</label></td>
-					<td><input type="text" name="college" /></td>
+					<td><input type="text" name="college" id="college"/></td>
 				</tr>
 				<tr>
 					<td><label>Joinee's year of graduation:</label></td>
-					<td><input type="text" name="passoutyear" /></td>
+					<td><input type="text" name="passoutyear" id="passoutyear"/></td>
 				</tr>
 				<tr>
 					<td><label>Joinee's team:</label></td>
-					<td><input type="text" name="team"  /></td>
+					<td><input type="text" name="team"  id="team"/></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Suggest buddies" id="suggestBuddies" class="suggestBuddies"/></td>
@@ -174,7 +175,8 @@ type="text/javascript"></script>
 						          },
 						          passoutyear: 
 						          {
-						            required: true
+						            required: true,
+						            number: true
 						          },
 						          team: 
 						          {
@@ -197,7 +199,39 @@ type="text/javascript"></script>
 						          }	
 						        }
 						      });   
+					
+					$(document).click(function(){
+						$("#ajax_response").fadeOut('slow');
+					});
+					$("#ajax_response").hide();
 
+					//todo extract this into a function; register handlers for all form fields.
+					//also organize javascript & keep in separate js file.
+					var minlength = 3;
+				    $("#team_removethis").keyup(function () {
+				        var that = this,
+				        value = $(this).val();
+
+				        if (value.length >= minlength ) {
+				            $.ajax({
+				                type: "GET",
+				                url: "suggester.do",
+				                data: {
+				                    'property' : 'currentTeam',
+				                    'value' : value
+				                },
+				                dataType: "text",
+				                success: function(msg){
+				                    $("#ajax_response").html(msg);
+				                    $("#ajax_response").show();
+				                    $("#ajax_response").css("width",$("#team").width());
+				                    $("#ajax_response").offset($("#team").offset())
+				                    $("#ajax_response").css("top", parseInt($("#ajax_response").css("top").split("px")[0])+15+"px")
+				                }
+				            });
+				        }
+				    });
+				    
 					$("#joineeDetailsForm").submit(
 							function() {
 								var url = "recommender.do";

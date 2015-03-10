@@ -8,9 +8,17 @@
 		<servlet-name>recommender</servlet-name>
 		<servlet-class>com.recommender.frontend.RecommenderServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>suggester</servlet-name>
+		<servlet-class>com.recommender.frontend.Suggester</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>recommender</servlet-name>
 		<url-pattern>/recommender.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>suggester</servlet-name>
+		<url-pattern>/suggester.do</url-pattern>
 	</servlet-mapping>
 	<listener>
 		<listener-class>com.recommender.frontend.RecommenderContextListener</listener-class>

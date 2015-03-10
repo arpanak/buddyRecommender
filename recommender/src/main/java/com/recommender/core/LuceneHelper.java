@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -14,6 +16,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
@@ -32,11 +35,6 @@ import org.apache.lucene.store.RAMDirectory;
  */
 public class LuceneHelper
 {
-
-	/**
-	 * add dropdown to columns and make ajax call
-	 * to populate columns - should query index
-	 */
 
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
@@ -79,8 +77,6 @@ public class LuceneHelper
 		reader = DirectoryReader.open(index);
 	}
 
-	// TODO use string field(not text field) for properties that should not be
-	// tokenized.
 	private static void addEmployee(IndexWriter w, Map<String, String> propertyName2PropertyValue) throws IOException
 	{
 		Document doc = new Document();
@@ -110,19 +106,9 @@ public class LuceneHelper
 		return boost;
 	}
 
-	// TODO indexReader should be kept open for fast queries
 	public static List<Employee> runQuery(Map<String, String> filterName2filterValue, int hitsPerPage) throws Exception
 	{
-		// 2. query
-		// the "title" arg specifies the default field to use
-		// when no field is explicitly specified in the query.
-
-		BooleanQuery employeeQuery = new BooleanQuery();
-		for (Entry<String, String> filter : filterName2filterValue.entrySet())
-		{
-			Query q = new QueryParser(filter.getKey(), analyzer).parse(filter.getValue());
-			employeeQuery.add(q, BooleanClause.Occur.SHOULD);
-		}
+		BooleanQuery employeeQuery = buildQuery(filterName2filterValue);
 
 		// 3. search
 		IndexSearcher searcher = new IndexSearcher(reader);
@@ -142,6 +128,47 @@ public class LuceneHelper
 					+ d.get("currentTeam"));
 		}
 		return recommendedEmployees;
+	}
+
+	public static Set<String> runQueryForSingleProperty(String propertyName, String propertyValue, int numberOfResponsesRequired) throws Exception
+	{
+		Set<String> result = new TreeSet<String>();
+		BooleanQuery employeeQuery = new BooleanQuery();
+		Query fuzzyQuery = new QueryParser(propertyName, analyzer).parse(propertyValue.trim()+"~");
+		Query wildcardQuery = new QueryParser(propertyName, analyzer).parse(propertyValue.trim()+"*");
+		employeeQuery.add(fuzzyQuery, BooleanClause.Occur.SHOULD);
+		employeeQuery.add(wildcardQuery, BooleanClause.Occur.SHOULD);
+
+		IndexSearcher searcher = new IndexSearcher(reader);
+		TopScoreDocCollector collector = TopScoreDocCollector.create(numberOfResponsesRequired);
+		searcher.search(employeeQuery, collector);
+		ScoreDoc[] hits = collector.topDocs().scoreDocs;
+		for(int i = 0 ; i < hits.length ; i++)
+		{
+			int docId = hits[i].doc;
+			Document d = searcher.doc(docId);
+			result.add(d.get(propertyName));
+		}
+		return result;
+	}
+	
+	/**
+	 * Builds a query consisting of multiple clauses. Each query clause is
+	 * generated from an entry in the map provided as argument.
+	 * 
+	 * @param filterName2filterValue
+	 * @return
+	 * @throws ParseException
+	 */
+	private static BooleanQuery buildQuery(Map<String, String> filterName2filterValue) throws ParseException
+	{
+		BooleanQuery employeeQuery = new BooleanQuery();
+		for (Entry<String, String> filter : filterName2filterValue.entrySet())
+		{
+			Query q = new QueryParser(filter.getKey(), analyzer).parse(filter.getValue());
+			employeeQuery.add(q, BooleanClause.Occur.SHOULD);
+		}
+		return employeeQuery;
 	}
 
 	private static Employee convertDocumentToEmployee(Document document) throws Exception

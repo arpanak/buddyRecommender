@@ -1,5 +1,6 @@
 package com.recommender.frontend;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,17 +56,32 @@ public class RecommenderServlet extends HttpServlet
 		try
 		{
 			recommendedEmployees = Recommender.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
-			PrintWriter responseWriter = response.getWriter();
-			response.setContentType(TEXT_HTML);
-			responseWriter.print(getResponseAsString(recommendedEmployees));
-			IOUtils.closeQuietly(responseWriter);
+			writeResponse(response, getResponseAsString(recommendedEmployees));
 		}
 		catch (Exception e)
 		{
+			String responseString = "<h3>Recommended employees: </h3>Error occured while processing.";
+			writeResponse(response, responseString);
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
+	public static void writeResponse(HttpServletResponse response, String responseString)
+	{
+		PrintWriter responseWriter;
+		try
+		{
+			responseWriter = response.getWriter();
+			response.setContentType(TEXT_HTML);
+			responseWriter.print(responseString);
+			IOUtils.closeQuietly(responseWriter);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
 		String response = "";
