@@ -30,12 +30,13 @@
 <style>
 #responseContent td
 {
-background: #f3f3f3;
+
 border-bottom: 1px solid #e2e2e2;
 border-top: 1px solid #e2e2e2;
 padding-right: 15px;
 padding-left: 15px;
 }
+
 </style>
 <!-- end CSS-->
 
@@ -156,6 +157,7 @@ padding-left: 15px;
 					data : $("#joineeDetailsForm").serialize(),
 					success : function(data) {
 						$("#responseContent").html(data);
+						$( "#responseContent tr:even" ).css( "background-color", "#f3f3f3" );
 					}
 				});
 
