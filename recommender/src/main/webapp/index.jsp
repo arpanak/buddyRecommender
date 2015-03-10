@@ -28,15 +28,28 @@
 <link rel="stylesheet" href="js/flexslider/flexslider.css">
 <link rel="stylesheet" href="css/basic-style.css">
 <style>
-#responseContent td
-{
-
-border-bottom: 1px solid #e2e2e2;
-border-top: 1px solid #e2e2e2;
-padding-right: 15px;
-padding-left: 15px;
+#responseContent td {
+	border-bottom: 1px solid #e2e2e2;
+	border-top: 1px solid #e2e2e2;
+	padding-right: 15px;
+	padding-left: 15px;
 }
 
+#joineeDetailsForm label.error {
+	color: red;
+}
+
+#joineeDetailsForm input.error {
+	border: 1px solid red;
+}
+
+.suggestBuddies{
+	  display: block;
+  float: left;
+  margin: 10px 15px 10px 0;
+  padding: 10px;
+  text-decoration: none;
+}
 </style>
 <!-- end CSS-->
 
@@ -96,11 +109,10 @@ padding-left: 15px;
 				</tr>
 				<tr>
 					<td><label>Joinee's team:</label></td>
-					<td><input type="text" name="team" /></td>
+					<td><input type="text" name="team"  /></td>
 				</tr>
 				<tr>
-					<td><a href="#" class="buttonlink" id="suggestBuddies">Suggest
-							buddies</a></td>
+					<td><input type="submit" value="Suggest buddies" id="suggestBuddies" class="suggestBuddies"/></td>
 				</tr>
 			</table>
 			<label></label>
@@ -136,6 +148,8 @@ padding-left: 15px;
 	<!-- jQuery -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"
+type="text/javascript"></script>
 	<script>
 		window.jQuery
 				|| document
@@ -147,23 +161,64 @@ padding-left: 15px;
 	<!-- fire ups - read this file!  -->
 	<script src="js/main.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
+		$(document).ready(
+				function() {
 
-			$("#suggestBuddies").click(function() {
-				var url = "recommender.do";
-				$.ajax({
-					type : "POST",
-					url : url,
-					data : $("#joineeDetailsForm").serialize(),
-					success : function(data) {
-						$("#responseContent").html(data);
-						$( "#responseContent tr:even" ).css( "background-color", "#f3f3f3" );
-					}
-				});
+					$("#joineeDetailsForm").validate(
+						      {
+						        rules: 
+						        {
+						          college: 
+						          {
+						            required: true
+						          },
+						          passoutyear: 
+						          {
+						            required: true
+						          },
+						          team: 
+						          {
+						            required: true
+						          }
+						        },
+						        messages: 
+						        {
+						          college: 
+						          {
+						            required: "Please enter joinee's college"
+						          },
+						          passoutyear: 
+						          {
+						            required: "Please enter joinee's year of graduation"
+						          }	,
+						          team: 
+						          {
+						            required: "Please enter joinee's team"
+						          }	
+						        }
+						      });   
 
-				return false;
-			});
-		})
+					$("#joineeDetailsForm").submit(
+							function() {
+								var url = "recommender.do";
+								if($("#joineeDetailsForm").valid())
+								{
+									$.ajax({
+										type : "POST",
+										url : url,
+										data : $("#joineeDetailsForm").serialize(),
+										success : function(data) {
+											$("#responseContent").html(data);
+											$("#responseContent tr:even").css(
+													"background-color", "#f3f3f3");
+										}
+									});
+								}
+								
+								return false;
+								
+							});
+				})
 	</script>
 </body>
 </html>
