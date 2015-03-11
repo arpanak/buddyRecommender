@@ -50,6 +50,12 @@
   padding: 10px;
   text-decoration: none;
 }
+
+footer{
+bottom: 0;
+position: absolute;
+width: 100%;
+}
 </style>
 <!-- end CSS-->
 

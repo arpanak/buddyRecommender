@@ -27,7 +27,13 @@
 <!-- JS-->
 <script src="js/libs/modernizr-2.6.2.min.js"></script>
 <!-- end JS-->
-
+<style>
+footer{
+bottom: 0;
+position: absolute;
+width: 100%;
+}
+</style>
 </head>
 
 <body id="home">
