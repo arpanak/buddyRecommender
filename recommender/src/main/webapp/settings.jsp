@@ -27,13 +27,6 @@
 <!-- JS-->
 <script src="js/libs/modernizr-2.6.2.min.js"></script>
 <!-- end JS-->
-<style>
-footer{
-bottom: 0;
-position: absolute;
-width: 100%;
-}
-</style>
 </head>
 
 <body id="home">
@@ -73,7 +66,7 @@ width: 100%;
     
 <!-- content area -->    
 	<section id="content">
-    Page under construction.
+    <p style="color:red">Page under construction.</p>
 
 </section><!-- #end content area -->
       
