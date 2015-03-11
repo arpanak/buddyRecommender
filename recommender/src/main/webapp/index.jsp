@@ -63,6 +63,10 @@
 
 <body id="home">
 
+<div id="wrapper">
+
+	<div id="header">
+
 	<!-- header area -->
 	<header class="wrapper clearfix">
 
@@ -76,7 +80,7 @@
 		<nav id="topnav" role="navigation">
 			<div class="menu-toggle">Menu</div>
 			<ul class="srt-menu" id="menu-main-navigation">
-				<li class="current"><a href="index.jsp">Home page</a></li>
+				<li class="current"><a href="index.jsp">Recommender</a></li>
 				<li><a href="settings.jsp">Settings</a></li>
 			</ul>
 		</nav>
@@ -92,11 +96,10 @@
 			<h1>Buddy recommender</h1>
 		</div>
 	</section>
-
+	</div>
 	<!-- main content area -->
 	<div id="main" class="wrapper">
 
-<span id="ajax_response" style="display: block;position:absolute"></span>
 		<br />
 		<form action="recommender.do" method="post" id="joineeDetailsForm">
 			
@@ -145,13 +148,15 @@
 
 	</footer>
 	<!-- #end footer area -->
-
+</div>
 
 	<!-- jQuery -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"
-type="text/javascript"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      
 	<script>
 		window.jQuery
 				|| document
@@ -163,6 +168,30 @@ type="text/javascript"></script>
 	<!-- fire ups - read this file!  -->
 	<script src="js/main.js"></script>
 	<script type="text/javascript">
+	
+	function setupAutocomplete(targetElement, propertyName)
+	{
+		targetElement.autocomplete({
+			source: function(request, response)
+			{
+				$.ajax({
+	                type: "GET",
+	                url: "suggester.do",
+	                data: {
+	                    'property' : propertyName,
+	                    'value' : request.term
+	                },
+	                dataType: "text",
+	                success: function(msg){
+	                	response(eval(msg));
+	                }
+	            });
+			}
+		
+	    });
+		
+	}
+	
 		$(document).ready(
 				function() {
 
@@ -201,38 +230,9 @@ type="text/javascript"></script>
 						        }
 						      });   
 					
-					$(document).click(function(){
-						$("#ajax_response").fadeOut('slow');
-					});
-					$("#ajax_response").hide();
-
-					//todo extract this into a function; register handlers for all form fields.
-					//also organize javascript & keep in separate js file.
-					var minlength = 3;
-				    $("#team_removethis").keyup(function () {
-				        var that = this,
-				        value = $(this).val();
-
-				        if (value.length >= minlength ) {
-				            $.ajax({
-				                type: "GET",
-				                url: "suggester.do",
-				                data: {
-				                    'property' : 'currentTeam',
-				                    'value' : value
-				                },
-				                dataType: "text",
-				                success: function(msg){
-				                    $("#ajax_response").html(msg);
-				                    $("#ajax_response").show();
-				                    $("#ajax_response").css("width",$("#team").width());
-				                    $("#ajax_response").offset($("#team").offset())
-				                    $("#ajax_response").css("top", parseInt($("#ajax_response").css("top").split("px")[0])+15+"px")
-				                }
-				            });
-				        }
-				    });
-				    
+					setupAutocomplete($("#team"), "currentTeam");
+					setupAutocomplete($("#college"), "graduateInstitute");
+					
 					$("#joineeDetailsForm").submit(
 							function() {
 								var url = "recommender.do";

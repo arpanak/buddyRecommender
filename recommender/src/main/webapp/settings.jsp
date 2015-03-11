@@ -44,7 +44,7 @@
         <nav id="topnav" role="navigation">
         <div class="menu-toggle">Menu</div>  
         	<ul class="srt-menu" id="menu-main-navigation">
-            <li><a href="index.jsp">Home page</a></li>
+            <li><a href="index.jsp">Recommender</a></li>
             <li class="current"><a href="settings.jsp">Settings</a></li>
 		</ul>     
 		</nav><!-- #topnav -->

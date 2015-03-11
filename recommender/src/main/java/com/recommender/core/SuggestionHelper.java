@@ -1,6 +1,7 @@
 package com.recommender.core;
 
 import java.util.Set;
+import org.json.simple.JSONArray;
 
 /**
  * This class queries the lucene index to find a list of values of a particular
@@ -20,15 +21,12 @@ public class SuggestionHelper
 	 * @param numberOfResponses number of responses required
 	 * @return json string response - list of property values
 	 */
+	@SuppressWarnings("unchecked")
 	public static String getSuggestions(String property, String value, int numberOfResponses) throws Exception
 	{
 		Set<String> suggestions = LuceneHelper.runQueryForSingleProperty(property, value, numberOfResponses);
-		String responseList = "<ol>";
-		for(String suggestion : suggestions)
-		{
-			responseList += "<li>"+suggestion+"</li>";
-		}
-		responseList += "</ol>";
-		return responseList;
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(suggestions);
+		return jsonArray.toJSONString();
 	}
 }
