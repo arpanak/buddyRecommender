@@ -4,7 +4,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.recommender.core.SuggestionHelper;
+import com.recommender.utilities.SuggestionHelper;
 
 /**
  * This servlet receives a string of characters and a field name. It finds a

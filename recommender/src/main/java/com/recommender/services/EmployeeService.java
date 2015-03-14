@@ -1,4 +1,4 @@
-package com.recommender.core;
+package com.recommender.services;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,9 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import com.recommender.domain.Employee;
+import com.recommender.utilities.CsvBeanMapper;
 
 /**
  * Contains logic to retrieve data from csv and return object representations of
@@ -15,7 +18,8 @@ import org.apache.commons.lang3.StringUtils;
  * 
  * @author AshwinV
  */
-public class PersistenceManager
+@Service
+public class EmployeeService
 {
 
 	//private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
@@ -26,7 +30,7 @@ public class PersistenceManager
 	 * 
 	 * @return the all employees
 	 */
-	public static List<Employee> getAllEmployees()
+	public List<Employee> getAllEmployees()
 	{
 		final String[] columns = new String[] { "name", "gender", "graduateDegree", "graduateStream", "graduateInstitute",
 				"graduateYear", "postGraduateDegree", "postGraduateStream", "postGraduateInstitute", "postGraduateYear",
@@ -48,14 +52,14 @@ public class PersistenceManager
 		return result;
 	}
 
-	private static String getCsvFileAsString() throws Exception
+	private String getCsvFileAsString() throws Exception
 	{
 		File csvFile = new File(EXISTING_EMPLOYEES_CSV_FILE);
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile));
 		return IOUtils.toString(bufferedReader);
 	}
 
-	private static BeanUtilsBean getCsvEntryToEntityConverter()
+	private BeanUtilsBean getCsvEntryToEntityConverter()
 	{
 		BeanUtilsBean beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean()
 		{

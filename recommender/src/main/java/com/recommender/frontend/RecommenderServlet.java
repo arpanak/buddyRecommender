@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import com.recommender.core.Employee;
-import com.recommender.core.Joinee;
-import com.recommender.core.Recommender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.HttpRequestHandler;
+import com.recommender.domain.Employee;
+import com.recommender.domain.Joinee;
+import com.recommender.services.RecommenderService;
 
 /**
  * Receives http request containing information on the new employee and returns
@@ -20,7 +24,8 @@ import com.recommender.core.Recommender;
  * @author AshwinV
  * 
  */
-public class RecommenderServlet extends HttpServlet
+@Component("recommenderServlet")
+public class RecommenderServlet extends HttpServlet implements HttpRequestHandler
 {
 	public static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
 	private static final String JOINEE_TEAM = "team";
@@ -30,6 +35,9 @@ public class RecommenderServlet extends HttpServlet
 	private static final String JOINEE_NAME = "name";
 	private static final long serialVersionUID = -315225148153801990L;
 
+	@Autowired
+	private RecommenderService recommenderService;
+	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -55,7 +63,7 @@ public class RecommenderServlet extends HttpServlet
 		List<Employee> recommendedEmployees = new ArrayList<Employee>();
 		try
 		{
-			recommendedEmployees = Recommender.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
+			recommendedEmployees = recommenderService.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
 			writeResponse(response, getResponseAsString(recommendedEmployees));
 		}
 		catch (Exception e)
@@ -108,5 +116,10 @@ public class RecommenderServlet extends HttpServlet
 			response = "<h3>Recommended employees: </h3><br/><br/>No employees found.";
 		}
 		return response;
+	}
+
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		doPost(request, response);
 	}
 }

@@ -1,4 +1,4 @@
-package com.recommender.core;
+package com.recommender.utilities;
 
 import java.util.Set;
 import org.json.simple.JSONArray;

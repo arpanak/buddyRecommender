@@ -1,10 +1,17 @@
-package com.recommender.core;
+package com.recommender.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.recommender.domain.Employee;
+import com.recommender.domain.Joinee;
 import com.recommender.frontend.RecommenderServlet;
+import com.recommender.utilities.LuceneHelper;
 
 /**
  * 
@@ -13,16 +20,21 @@ import com.recommender.frontend.RecommenderServlet;
  * @author AshwinV
  * 
  */
-public class Recommender
+@Service
+public class RecommenderService
 {
 
 	private static List<Employee> existingEmployees = new ArrayList<Employee>();
 	// TODO priorities could be configured in properties file
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
-	public static void initializeRecommender()
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@PostConstruct
+	public void initializeRecommender()
 	{
-		existingEmployees = PersistenceManager.getAllEmployees();
+		existingEmployees = employeeService.getAllEmployees();
 		try
 		{
 			propertyName2priority.put("currentTeam", 40f);
@@ -39,7 +51,13 @@ public class Recommender
 		}	
 	}
 	
-	public static List<Employee> getRecommendations(Joinee newJoinee, int numRecommendationsRequired) throws Exception
+	@PreDestroy
+	public void closeLuceneIndex()
+	{
+		LuceneHelper.close();
+	}
+	
+	public List<Employee> getRecommendations(Joinee newJoinee, int numRecommendationsRequired) throws Exception
 	{
 		String institute = newJoinee.getCollege();
 		String team = newJoinee.getTeam();
@@ -53,9 +71,9 @@ public class Recommender
 		return LuceneHelper.runQuery(filterMap, numRecommendationsRequired);
 	}
 
-	public static List<Employee> getRecommendations(String college, String graduationYear, String team) throws Exception
+	public List<Employee> getRecommendations(String college, String graduationYear, String team) throws Exception
 	{
 		Joinee newJoinee = new Joinee("", "", college, new ArrayList<String>(), new ArrayList<String>(), Integer.parseInt(graduationYear), team);
-		return Recommender.getRecommendations(newJoinee, RecommenderServlet.NUMBER_OF_RECOMMENDATIONS_REQUIRED);
+		return getRecommendations(newJoinee, RecommenderServlet.NUMBER_OF_RECOMMENDATIONS_REQUIRED);
 	}
 }

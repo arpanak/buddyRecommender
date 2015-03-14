@@ -1,4 +1,4 @@
-package com.recommender.core;
+package com.recommender.domain;
 
 
 /**

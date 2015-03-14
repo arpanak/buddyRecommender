@@ -1,4 +1,4 @@
-package com.recommender.core;
+package com.recommender.utilities;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
+import com.recommender.domain.Employee;
 
 /**
  * This class handles interaction with the lucene framework.
