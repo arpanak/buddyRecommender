@@ -97,7 +97,7 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 		{
 			response = "<h3>Recommended buddies: </h3><br/>";
 			response += "<table>";
-			response += "<th><td><b>No.</b></td><td><b>Name</b></td><td><b>Current Team</b></td><td><b>Colleges</b></td><td><b>Graduate Year</b></td></th>";
+			response += "<th><td><b>No.</b></td><td><b>Name</b></td><td><b>Current Team</b></td><td><b>Colleges</b></td><td><b>Graduate Year</b></td><td></td></th>";
 			int i = 1;
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{
@@ -105,7 +105,7 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>"
 						+ recommendedEmployee.getCurrentTeam() + "</td><td>"
 						+ recommendedEmployee.getPostGraduateInstitute()
-						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td>";
+						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a onclick=\"$( '#dialog' ).dialog( 'open' )\" href=\"#\">Send Mail</a></td>";
 				response += "</tr>";
 				i++;
 			}

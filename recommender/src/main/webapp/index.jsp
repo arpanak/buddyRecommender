@@ -173,9 +173,10 @@
 		</form>
 		<br />
 		<div id="responseContent"></div>
+			<div id="dialog" title="Send mail"></div>
 
 
-	</div>
+		</div>
 	<!-- #end div #main .wrapper -->
 
 
@@ -243,7 +244,19 @@
 	
 		$(document).ready(
 				function() {
-
+					$( "#dialog" ).dialog({
+			               autoOpen: false, 
+			               minWidth: 500
+		            });
+		            
+					$.ajax({
+		                type: "GET",
+		                url: "SendMail.jsp",
+		                success: function(msg){
+		                	$("#dialog").html(msg);
+		                }
+		            });
+					
 					$("#joineeDetailsForm").validate(
 						      {
 						        rules: 

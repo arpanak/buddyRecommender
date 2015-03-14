@@ -1,3 +1,15 @@
+<style>
+#sendMail label.error {
+	color: red;
+}
+
+#sendMail input.error {
+	border: 1px solid red;
+}
+#sendMail textarea.error {
+	border: 1px solid red;
+}
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -8,7 +20,6 @@
 					email: true
 				},
 				cc : {
-					required : true,
 					email : true
 				},
 				subject : {
@@ -20,13 +31,11 @@
 			},
 			messages : {
 				to : {
-					required : "Please enter To email address"
-				},
-				cc : {
-					required : "Please enter CC email address"
+					required : "To address required",
+					email: "Enter valid address"
 				},
 				subject : {
-					required : "Please enter subject"
+					required : "Subject required"
 				},
 				mailContent : {
 					required : "Please enter mail content"
