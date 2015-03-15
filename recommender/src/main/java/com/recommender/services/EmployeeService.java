@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import com.recommender.domain.Employee;
+import com.recommender.db.Employee;
 import com.recommender.utilities.CsvBeanMapper;
 
 /**

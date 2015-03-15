@@ -1,4 +1,4 @@
-package com.recommender.domain;
+package com.recommender.db;
 
 import java.util.List;
 

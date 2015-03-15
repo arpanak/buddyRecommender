@@ -8,8 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.recommender.domain.Employee;
-import com.recommender.domain.Joinee;
+import com.recommender.db.Employee;
+import com.recommender.db.Joinee;
 import com.recommender.frontend.RecommenderServlet;
 import com.recommender.utilities.LuceneHelper;
 

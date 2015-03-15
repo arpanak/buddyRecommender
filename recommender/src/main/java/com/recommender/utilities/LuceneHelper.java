@@ -26,7 +26,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
-import com.recommender.domain.Employee;
+import com.recommender.db.Employee;
 
 /**
  * This class handles interaction with the lucene framework.

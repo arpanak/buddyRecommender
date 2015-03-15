@@ -13,8 +13,8 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
-import com.recommender.domain.Employee;
-import com.recommender.domain.Joinee;
+import com.recommender.db.Employee;
+import com.recommender.db.Joinee;
 import com.recommender.services.RecommenderService;
 
 /**
