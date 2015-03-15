@@ -10,8 +10,7 @@
     http://www.springframework.org/schema/data/jpa
     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-
-	<jpa:repositories base-package="com.recommender.db" />
+	<jpa:repositories base-package="com.recommender.repositories" />
 
 	<bean id="mainDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />

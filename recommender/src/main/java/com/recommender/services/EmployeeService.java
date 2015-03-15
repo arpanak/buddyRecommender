@@ -8,8 +8,10 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.recommender.db.Employee;
+import com.recommender.repositories.EmployeeRepository;
 import com.recommender.utilities.CsvBeanMapper;
 
 /**
@@ -25,6 +27,9 @@ public class EmployeeService
 	//private static final String EXISTING_EMPLOYEES_CSV_FILE = "d:/existingEmployees.csv";
 	private static final String EXISTING_EMPLOYEES_CSV_FILE = "/Users/ashwinvinod/Documents/workspace/buddyRecommender/existingEmployees.csv";
 
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
 	/**
 	 * Get list of Employee instances corresponding to existing employees.
 	 * 
