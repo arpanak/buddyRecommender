@@ -219,6 +219,17 @@
 	<script src="js/main.js"></script>
 	<script type="text/javascript">
 	
+	function initializeDialogContent()
+	{
+		$.ajax({
+            type: "GET",
+            url: "SendMail.jsp",
+            success: function(msg){
+            	$("#dialog").html(msg);
+            }
+        });
+	}
+	
 	function setupAutocomplete(targetElement, propertyName)
 	{
 		targetElement.autocomplete({
@@ -245,18 +256,11 @@
 		$(document).ready(
 				function() {
 					$( "#dialog" ).dialog({
-			               autoOpen: false, 
+			               autoOpen: false,
+			               open : initializeDialogContent(),
 			               minWidth: 500
 		            });
 		            
-					$.ajax({
-		                type: "GET",
-		                url: "SendMail.jsp",
-		                success: function(msg){
-		                	$("#dialog").html(msg);
-		                }
-		            });
-					
 					$("#joineeDetailsForm").validate(
 						      {
 						        rules: 

@@ -43,6 +43,26 @@
 			}
 		});
 
+		$("#sendMail").submit(
+				function() {
+					var url = "email.do";
+					if($("#sendMail").valid())
+					{
+						$("#submit").val("Sending mail");
+						$("#submit").attr("disabled", "true");
+						$.ajax({
+							type : "POST",
+							url : url,
+							data : $("#sendMail").serialize(),
+							success : function(data) {
+								$("#sendMail").parent().html(data);
+							}
+						});
+					}
+					
+					return false;
+					
+				});
 	})
 </script>
 
@@ -65,6 +85,6 @@
 		<textarea name="mailContent" rows=8 cols=50></textarea>
 	</p>
 	<p>
-		<input type="submit" name="submit" value="Send Mail" />
+		<input type="submit" id="submit" name="submit" value="Send Mail" />
 	</p>
 </form>

@@ -25,7 +25,6 @@ public class RecommenderService
 {
 
 	private static List<Employee> existingEmployees = new ArrayList<Employee>();
-	// TODO priorities could be configured in properties file
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
 	@Autowired
