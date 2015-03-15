@@ -53,6 +53,11 @@ public class LuceneHelper
 		LuceneHelper.propertyName2priority = propertyName2priority;
 	}
 
+	/**
+	 * Only adds properties of type String in the Employee class to the index.
+	 * @param employees
+	 * @throws Exception
+	 */
 	private static void buildIndex(List<Employee> employees) throws Exception
 	{
 
@@ -69,8 +74,11 @@ public class LuceneHelper
 				field.setAccessible(true);
 				String name = field.getName();
 				Object propertyValue = field.get(employee);
-				String value = propertyValue == null ? "" : (String) propertyValue;
-				propertyName2PropertyValue.put(name, value);
+				if(propertyValue instanceof String)
+				{
+					String value = propertyValue == null ? "" : (String) propertyValue;
+					propertyName2PropertyValue.put(name, value);
+				}
 			}
 			addEmployee(w, propertyName2PropertyValue);
 		}
