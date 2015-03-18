@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="js/flexslider/flexslider.css">
 <link rel="stylesheet" href="css/basic-style.css">
-
+<link href="http://hayageek.github.io/jQuery-Upload-File/uploadfile.min.css" rel="stylesheet">
 <!-- end CSS-->
     
 <!-- JS-->
@@ -66,7 +66,14 @@
     
 <!-- content area -->    
 	<section id="content">
-    <p style="color:red">Page under construction.</p>
+    <h3>Import employee details</h3><br/>
+    <table>
+    	<tr>
+    		<td><label>Upload csv file:</label></td>
+    		<td id="uploaderCell"><div id="fileuploader">Upload</div></td>
+    	</tr>
+    </table> 
+    <div id="eventsmessage"></div>
 
 </section><!-- #end content area -->
       
@@ -100,11 +107,31 @@
 <!-- jQuery -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>')</script>
-
+<script src="http://hayageek.github.io/jQuery-Upload-File/jquery.uploadfile.min.js"></script>
 <script defer src="js/flexslider/jquery.flexslider-min.js"></script>
 
 <!-- fire ups - read this file!  -->   
 <script src="js/main.js"></script>
+<script type="text/javascript">
 
+	$(document).ready(function() {
+		$("#fileuploader").uploadFile({
+			url : "uploader.do",
+			fileName : "fileName",
+			allowedTypes: "csv",
+			onSuccess:function(files,data,xhr)
+			{
+				$("#eventsmessage").html("");
+				$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Successfully imported data.");
+				
+			},
+			onError: function(files,status,errMsg)
+			{
+				$("#eventsmessage").html("");
+				$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Error occurred while uploading the following files: "+JSON.stringify(files));
+			}
+		});
+	});
+</script>
 </body>
 </html>
