@@ -154,6 +154,10 @@
 			
 			<table>
 				<tr>
+					<td><label>Joinee's name:</label></td>
+					<td><input type="text" name="name" id="name"/></td>
+				</tr>
+				<tr>
 					<td><label>Joinee's college:</label></td>
 					<td><input type="text" name="college" id="college"/></td>
 				</tr>
@@ -173,7 +177,7 @@
 		</form>
 		<br />
 		<div id="responseContent"></div>
-			<div id="dialog" title="Send mail"></div>
+			<div id="dialog" title="Send mail to assigned buddy"></div>
 
 
 		</div>
@@ -265,6 +269,10 @@
 						      {
 						        rules: 
 						        {
+						          name: 
+							          {
+							            required: true
+							          },
 						          college: 
 						          {
 						            required: true
@@ -281,6 +289,10 @@
 						        },
 						        messages: 
 						        {
+						          name: 
+							      {
+							         required: "Please enter joinee's name"
+							      },
 						          college: 
 						          {
 						            required: "Please enter joinee's college"

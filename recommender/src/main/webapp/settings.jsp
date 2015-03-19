@@ -67,12 +67,9 @@
 <!-- content area -->    
 	<section id="content">
     <h3>Import employee details</h3><br/>
-    <table>
-    	<tr>
-    		<td><label>Upload csv file:</label></td>
-    		<td id="uploaderCell"><div id="fileuploader">Upload</div></td>
-    	</tr>
-    </table> 
+    
+	<p>Upload csv file:</p>
+    <div id="uploaderCell"><div id="fileuploader">Upload</div></div>
     <div id="eventsmessage"></div>
 
 </section><!-- #end content area -->
@@ -83,8 +80,8 @@
         <h2>Options</h2>
             <nav id="secondary-navigation">
                     <ul>
-                        <li><a href="#">File location</a></li>
-                        <li class="current"><a href="#">Recommender preferences</a></li>
+                        <li class="current"><a href="#">Import employee details</a></li>
+                        <li><a href="#">Manage preferences(Under construction)</a></li>
                     </ul>
              </nav>
       </aside><!-- #end sidebar -->

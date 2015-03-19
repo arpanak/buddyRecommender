@@ -54,7 +54,6 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 		int graduationYear = Integer.parseInt(yearOfGraduation);
 
 		Joinee newJoinee = new Joinee(name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team);
-
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}
 
@@ -105,7 +104,7 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>"
 						+ recommendedEmployee.getCurrentTeam() + "</td><td>"
 						+ recommendedEmployee.getPostGraduateInstitute()
-						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a onclick=\"$( '#dialog' ).dialog( 'open' )\" href=\"#\">Send Mail</a></td>";
+						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a id='"+recommendedEmployee.getId()+"' onclick=\"$(this).addClass('open-window');$( '#dialog' ).dialog( 'open' )\" href=\"#\">Assign buddy</a></td>";
 				response += "</tr>";
 				i++;
 			}

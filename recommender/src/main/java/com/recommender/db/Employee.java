@@ -1,8 +1,10 @@
 package com.recommender.db;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -38,6 +40,9 @@ public class Employee
 	private String workingWithUsSince;
 	private String careerLevel;
 	private String currentDesignation;
+	
+	@OneToMany
+	private List<Joinee> assignedJoinees;
 
 	public Integer getId()
 	{

@@ -40,7 +40,7 @@ public class EmailServlet extends HttpServlet implements HttpRequestHandler
 		try
 		{
 			mailService.sendMail(FROM_ADDRESS, to, cc, subject, mailContent);
-			out.println("Email sent");
+			out.println("Email sent to assigned buddy at "+to);
 		}
 		catch(Exception ex)
 		{

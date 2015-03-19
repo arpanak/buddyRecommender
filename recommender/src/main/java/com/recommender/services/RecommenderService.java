@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.recommender.db.Employee;
 import com.recommender.db.Joinee;
-import com.recommender.frontend.RecommenderServlet;
 import com.recommender.utilities.LuceneHelper;
 
 /**
@@ -70,9 +69,4 @@ public class RecommenderService
 		return LuceneHelper.runQuery(filterMap, numRecommendationsRequired);
 	}
 
-	public List<Employee> getRecommendations(String college, String graduationYear, String team) throws Exception
-	{
-		Joinee newJoinee = new Joinee("", "", college, new ArrayList<String>(), new ArrayList<String>(), Integer.parseInt(graduationYear), team);
-		return getRecommendations(newJoinee, RecommenderServlet.NUMBER_OF_RECOMMENDATIONS_REQUIRED);
-	}
 }
