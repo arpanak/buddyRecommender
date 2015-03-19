@@ -331,6 +331,10 @@
 								return false;
 								
 							});
+					$("#sendMail").submit(function(){
+						console.log("sendmail form submitted");
+						
+					});
 				})
 	</script>
 </body>

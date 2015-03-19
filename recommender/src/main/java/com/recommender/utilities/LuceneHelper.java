@@ -36,7 +36,6 @@ import com.recommender.db.Employee;
  */
 public class LuceneHelper
 {
-
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
 	// 0. Specify the analyzer for tokenizing text.
@@ -78,6 +77,14 @@ public class LuceneHelper
 				{
 					String value = propertyValue == null ? "" : (String) propertyValue;
 					propertyName2PropertyValue.put(name, value);
+				}
+				else
+				{
+					if(propertyValue instanceof Integer)
+					{
+						Integer value = propertyValue == null ? 0 : (Integer) propertyValue;
+						propertyName2PropertyValue.put(name, value.toString());
+					}
 				}
 			}
 			addEmployee(w, propertyName2PropertyValue);
@@ -189,7 +196,14 @@ public class LuceneHelper
 			field.setAccessible(true);
 			String fieldName = field.getName();
 			String fieldValue = document.get(fieldName);
-			field.set(employee, fieldValue);
+			if(String.class.equals(field.getType()))
+			{
+				field.set(employee, fieldValue);				
+			}
+			else if(Integer.class.equals(field.getType()))
+			{
+				field.set(employee, Integer.parseInt(fieldValue));
+			}
 		}
 		return employee;
 	}

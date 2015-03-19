@@ -54,6 +54,8 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 		int graduationYear = Integer.parseInt(yearOfGraduation);
 
 		Joinee newJoinee = new Joinee(name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team);
+		request.getSession().setAttribute("joinee", newJoinee);
+		
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}
 
