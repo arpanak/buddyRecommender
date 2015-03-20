@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import com.recommender.frontend.Email;
 
 @Service
 public class MailService
@@ -12,18 +13,18 @@ public class MailService
 	@Autowired(required = true)
 	private MailSender mailSender;
 
-	public void sendMail(String from, String to, String cc, String subject, String msg)
+	public void sendMail(Email email)
 	{
 		SimpleMailMessage message = new SimpleMailMessage();
 
-		message.setFrom(from);
-		message.setTo(to);
-		if(StringUtils.isNotEmpty(cc))
+		message.setFrom(email.getFrom());
+		message.setTo(email.getTo());
+		if(StringUtils.isNotEmpty(email.getCc()))
 		{
-			message.setCc(cc);
+			message.setCc(email.getCc());
 		}
-		message.setSubject(subject);
-		message.setText(msg);
+		message.setSubject(email.getSubject());
+		message.setText(email.getMailContent());
 		mailSender.send(message);
 	}
 }

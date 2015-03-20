@@ -23,4 +23,9 @@ public class EmployeeService
 	{
 		return employeeRepository.findAll();
 	}
+	
+	public Employee findEmployeeById(String id)
+	{
+		return employeeRepository.findOne(Integer.parseInt(id));
+	}
 }

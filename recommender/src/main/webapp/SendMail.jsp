@@ -63,7 +63,7 @@
 					return false;
 					
 				});
-	})
+	});
 </script>
 
 <form name="sendMail" id="sendMail" action="email.do" method="post">
@@ -86,5 +86,6 @@
 	</p>
 	<p>
 		<input type="submit" id="submit" name="submit" value="Send Mail" />
+		<input type="hidden" name="selectedEmployeeId" />
 	</p>
 </form>

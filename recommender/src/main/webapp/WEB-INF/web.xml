@@ -21,6 +21,10 @@
 	</listener>
 
 	<servlet>
+		<servlet-name>assignmentServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>emailServlet</servlet-name>
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
@@ -51,5 +55,9 @@
 	<servlet-mapping>
 		<servlet-name>suggester</servlet-name>
 		<url-pattern>/suggester.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>assignmentServlet</servlet-name>
+		<url-pattern>/assignment.do</url-pattern>
 	</servlet-mapping>
 </web-app>

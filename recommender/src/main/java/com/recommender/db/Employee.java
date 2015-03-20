@@ -1,5 +1,6 @@
 package com.recommender.db;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Employee
 	private String currentDesignation;
 	
 	@OneToMany
-	private List<Joinee> assignedJoinees;
+	private List<Joinee> assignedJoinees = new ArrayList<Joinee>();
 
 	public Integer getId()
 	{
@@ -252,6 +253,16 @@ public class Employee
 	public void setCurrentDesignation(String currentDesignation)
 	{
 		this.currentDesignation = currentDesignation;
+	}
+
+	public List<Joinee> getAssignedJoinees()
+	{
+		return assignedJoinees;
+	}
+
+	public void setAssignedJoinees(List<Joinee> assignedJoinees)
+	{
+		this.assignedJoinees = assignedJoinees;
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,7 +24,7 @@ import com.recommender.services.RecommenderService;
  * 
  */
 @Component("recommenderServlet")
-public class RecommenderServlet extends HttpServlet implements HttpRequestHandler
+public class RecommenderServlet implements HttpRequestHandler
 {
 	public static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
 	private static final String JOINEE_TEAM = "team";
@@ -33,19 +32,11 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 	private static final String TEXT_HTML = "text/html";
 	private static final String JOINEE_COLLEGE = "college";
 	private static final String JOINEE_NAME = "name";
-	private static final long serialVersionUID = -315225148153801990L;
 
 	@Autowired
 	private RecommenderService recommenderService;
 	
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	{
-		doPost(request, response);
-	}
-
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String name = request.getParameter(JOINEE_NAME);
 		String college = request.getParameter(JOINEE_COLLEGE);
@@ -58,23 +49,7 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 		
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}
-
-	private void getRecommendationsAndReturnResponse(Joinee newJoinee, HttpServletResponse response)
-	{
-		List<Employee> recommendedEmployees = new ArrayList<Employee>();
-		try
-		{
-			recommendedEmployees = recommenderService.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
-			writeResponse(response, getResponseAsString(recommendedEmployees));
-		}
-		catch (Exception e)
-		{
-			String responseString = "<h3>Recommended employees: </h3>Error occured while processing.";
-			writeResponse(response, responseString);
-			throw new RuntimeException(e.getMessage());
-		}
-	}
-
+	
 	public static void writeResponse(HttpServletResponse response, String responseString)
 	{
 		PrintWriter responseWriter;
@@ -91,6 +66,22 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 		}
 	}
 	
+	private void getRecommendationsAndReturnResponse(Joinee newJoinee, HttpServletResponse response)
+	{
+		List<Employee> recommendedEmployees = new ArrayList<Employee>();
+		try
+		{
+			recommendedEmployees = recommenderService.getRecommendations(newJoinee, NUMBER_OF_RECOMMENDATIONS_REQUIRED);
+			writeResponse(response, getResponseAsString(recommendedEmployees));
+		}
+		catch (Exception e)
+		{
+			String responseString = "<h3>Recommended employees: </h3>Error occured while processing.";
+			writeResponse(response, responseString);
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
 		String response = "";
@@ -117,10 +108,5 @@ public class RecommenderServlet extends HttpServlet implements HttpRequestHandle
 			response = "<h3>Recommended employees: </h3><br/><br/>No employees found.";
 		}
 		return response;
-	}
-
-	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		doPost(request, response);
 	}
 }
