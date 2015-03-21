@@ -42,6 +42,11 @@ public class Joinee
 		this.yearOfGraduation = yearOfGraduation;
 		this.team = team;
 	}
+	
+	public Joinee()
+	{
+		super();
+	}
 
 	public Integer getId()
 	{

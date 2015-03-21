@@ -27,6 +27,7 @@ import com.recommender.services.RecommenderService;
 public class RecommenderServlet implements HttpRequestHandler
 {
 	public static final int NUMBER_OF_RECOMMENDATIONS_REQUIRED = 5;
+	private static final String JOINEE = "joinee";
 	private static final String JOINEE_TEAM = "team";
 	private static final String JOINEE_GRADUATION_YEAR = "passoutyear";
 	private static final String TEXT_HTML = "text/html";
@@ -45,7 +46,7 @@ public class RecommenderServlet implements HttpRequestHandler
 		int graduationYear = Integer.parseInt(yearOfGraduation);
 
 		Joinee newJoinee = new Joinee(name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team);
-		request.getSession().setAttribute("joinee", newJoinee);
+		request.getSession().setAttribute(JOINEE, newJoinee);
 		
 		getRecommendationsAndReturnResponse(newJoinee, response);
 	}

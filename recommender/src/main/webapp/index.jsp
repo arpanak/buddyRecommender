@@ -265,6 +265,10 @@
 			               minWidth: 500
 		            });
 		            
+					$("#suggestBuddies").click(function(){
+						initializeDialogContent();
+					});
+					
 					$("#joineeDetailsForm").validate(
 						      {
 						        rules: 

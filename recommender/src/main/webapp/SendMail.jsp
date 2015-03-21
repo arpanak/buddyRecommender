@@ -45,7 +45,8 @@
 
 		$("#sendMail").submit(
 				function() {
-					var url = "email.do";
+					var url = "assignment.do";
+					$("#selectedEmployeeId").val($("a.open-window").prop("id"));
 					if($("#sendMail").valid())
 					{
 						$("#submit").val("Sending mail");
@@ -86,6 +87,6 @@
 	</p>
 	<p>
 		<input type="submit" id="submit" name="submit" value="Send Mail" />
-		<input type="hidden" name="selectedEmployeeId" />
+		<input type="hidden" id="selectedEmployeeId" name="selectedEmployeeId" />
 	</p>
 </form>

@@ -9,6 +9,7 @@ import com.recommender.db.Employee;
 import com.recommender.db.Joinee;
 import com.recommender.frontend.Email;
 import com.recommender.repositories.EmployeeRepository;
+import com.recommender.repositories.JoineeRepository;
 
 /**
  * This class handles assignment related features, including making and tracking
@@ -28,7 +29,9 @@ public class AssignmentService
 	private MailService mailService;
 	@Autowired
 	private EmployeeRepository employeeRepository;
-
+	@Autowired
+	private JoineeRepository joineeRepository;
+	
 	public enum ASSIGNMENT_STATUS
 	{
 		SUCCESS("Assignment successful."),
@@ -68,6 +71,7 @@ public class AssignmentService
 			try
 			{
 				buddy.getAssignedJoinees().add(joinee);
+				joineeRepository.save(joinee);
 				employeeRepository.save(buddy);
 				mailService.sendMail(emailToSend);
 				result = ASSIGNMENT_STATUS.SUCCESS;

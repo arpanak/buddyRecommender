@@ -25,10 +25,6 @@
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>emailServlet</servlet-name>
-		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>recommenderServlet</servlet-name>
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
@@ -47,10 +43,6 @@
 	<servlet-mapping>
 		<servlet-name>recommenderServlet</servlet-name>
 		<url-pattern>/recommender.do</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>emailServlet</servlet-name>
-		<url-pattern>/email.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>suggester</servlet-name>

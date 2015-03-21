@@ -3,6 +3,7 @@ package com.recommender.db;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -42,8 +43,13 @@ public class Employee
 	private String careerLevel;
 	private String currentDesignation;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Joinee> assignedJoinees = new ArrayList<Joinee>();
+
+	public Employee()
+	{
+		super();
+	}
 
 	public Integer getId()
 	{
