@@ -21,6 +21,10 @@
 	</listener>
 
 	<servlet>
+		<servlet-name>emailTemplateServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>assignmentServlet</servlet-name>
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
@@ -36,6 +40,10 @@
 		<servlet-name>suggester</servlet-name>
 		<servlet-class>com.recommender.frontend.Suggester</servlet-class>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>emailTemplateServlet</servlet-name>
+		<url-pattern>/emailTemplate.do</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>uploaderServlet</servlet-name>
 		<url-pattern>/uploader.do</url-pattern>

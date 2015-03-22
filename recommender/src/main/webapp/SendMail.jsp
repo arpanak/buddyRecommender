@@ -43,27 +43,42 @@
 			}
 		});
 
-		$("#sendMail").submit(
-				function() {
-					var url = "assignment.do";
-					$("#selectedEmployeeId").val($("a.open-window").prop("id"));
-					if($("#sendMail").valid())
-					{
-						$("#submit").val("Sending mail");
-						$("#submit").attr("disabled", "true");
-						$.ajax({
-							type : "POST",
-							url : url,
-							data : $("#sendMail").serialize(),
-							success : function(data) {
-								$("#sendMail").parent().html(data);
-							}
-						});
+		function submitForm(url){
+			if($("#sendMail").valid())
+			{
+				$("#submit").val("Sending mail");
+				$("#submit").attr("disabled", "true");
+				$.ajax({
+					type : "POST",
+					url : url,
+					data : $("#sendMail").serialize(),
+					success : function(data) {
+						$("#sendMail").parent().html(data);
 					}
-					
-					return false;
-					
 				});
+			}
+		}
+		
+		$("#sendMail").submit(
+			function() {
+				$("#selectedEmployeeId").val($("a.open-window").prop("id"));
+				var url = "assignment.do";
+				submitForm(url);
+				return false;
+		});
+		
+		//fetch email template
+		if($("selectedEmployeeId").val()){
+			$.ajax({
+				type : "POST",
+				url : "emailTemplate.do",
+				data : $("#sendMail").serialize(),
+				success : function(data) {
+					//get json response; populate form accordingly
+				}
+			});
+		}
+			
 	});
 </script>
 
