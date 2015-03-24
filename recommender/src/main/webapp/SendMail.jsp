@@ -67,18 +67,6 @@
 				return false;
 		});
 		
-		//fetch email template
-		if($("selectedEmployeeId").val()){
-			$.ajax({
-				type : "POST",
-				url : "emailTemplate.do",
-				data : $("#sendMail").serialize(),
-				success : function(data) {
-					//get json response; populate form accordingly
-				}
-			});
-		}
-			
 	});
 </script>
 
@@ -86,19 +74,19 @@
 	<table>
 		<tr>
 			<td><label>To:</label></td>
-			<td><input type="text" name="to" /></td>
+			<td><input type="text" name="to" id="to" /></td>
 		</tr>
 		<tr>
 			<td><label>CC:</label></td>
-			<td><input type="text" name="cc" /></td>
+			<td><input type="text" name="cc" id="cc"/></td>
 		</tr>
 		<tr>
 			<td><label>Subject:</label></td>
-			<td><input type="text" name="subject" /></td>
+			<td><input type="text" name="subject" id="subject"/></td>
 		</tr>
 	</table>
 	<p>
-		<textarea name="mailContent" rows=8 cols=50></textarea>
+		<textarea name="mailContent" id="mailContent" rows=8 cols=50></textarea>
 	</p>
 	<p>
 		<input type="submit" id="submit" name="submit" value="Send Mail" />

@@ -1,6 +1,7 @@
 package com.recommender.db;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -16,16 +17,17 @@ public class Configuration
 	}
 
 	@Id
-	private int id;
+	@GeneratedValue
+	private Integer id;
 	private CONFIGURATION_TYPE configurationType;
 	private String content;
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

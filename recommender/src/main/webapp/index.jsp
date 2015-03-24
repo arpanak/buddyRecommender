@@ -328,17 +328,31 @@
 											$("#responseContent").html(data);
 											$("#responseContent tr:even").css(
 													"background-color", "#f3f3f3");
+											
+												var assignLinks = $("#responseContent a");
+												for(var i = 0 ; i<assignLinks.length; i++){
+													$(assignLinks[i]).click(function(){
+														$.ajax({
+															type : "POST",
+															url : "emailTemplate.do",
+															data : {joineeName:$("#name").val(), employeeId:$("#responseContent a.open-window").prop("id")},
+															success : function(email) {
+																$("#to").val(email.toAddress);
+																$("#cc").val(email.cc);
+																$("#subject").val(email.subject);
+																$("#mailContent").val(email.emailContent);
+															}
+														})
+													});
+												}
 										}
 									});
 								}
 								
 								return false;
 								
-							});
-					$("#sendMail").submit(function(){
-						console.log("sendmail form submitted");
-						
 					});
+					
 				})
 	</script>
 </body>
