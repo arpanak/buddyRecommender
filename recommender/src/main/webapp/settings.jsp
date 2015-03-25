@@ -22,6 +22,21 @@
 <link rel="stylesheet" href="js/flexslider/flexslider.css">
 <link rel="stylesheet" href="css/basic-style.css">
 <link href="http://hayageek.github.io/jQuery-Upload-File/uploadfile.min.css" rel="stylesheet">
+<style>
+#sendMail label.error {
+	color: red;
+}
+
+#sendMail input.error {
+	border: 1px solid red;
+}
+#sendMail textarea.error {
+	border: 1px solid red;
+}
+#to, #cc, #subject {
+	width: 400px;
+}
+</style>
 <!-- end CSS-->
     
 <!-- JS-->
@@ -66,13 +81,46 @@
     
 <!-- content area -->    
 	<section id="content">
-    <h3>Import employee details</h3><br/>
-    
-	<p>Upload csv file:</p>
-    <div id="uploaderCell"><div id="fileuploader">Upload</div></div>
-    <div id="eventsmessage"></div>
 
-</section><!-- #end content area -->
+			<span id="importEmployeeDetails">
+				<h3>Import employee details</h3>
+				<br />
+
+				<p>Upload csv file:</p>
+				<div id="uploaderCell">
+					<div id="fileuploader">Upload</div>
+				</div>
+				<div id="eventsmessage"></div>
+			</span>
+			
+			<span id="configureAssigneeTemplate">
+				<h3>Configure assignee template</h3>
+				<br />
+
+				<form name="sendMail" id="sendMail" action="emailTemplate.do" method="post">
+					<table>
+						<tr>
+							<td><label>Default CC:</label></td>
+							<td><input type="text" name="cc" id="cc" /></td>
+						</tr>
+						<tr>
+							<td><label>Default Subject:</label></td>
+							<td><input type="text" name="subject" id="subject" /></td>
+						</tr>
+					</table>
+					<p>
+						<textarea name="mailContent" id="mailContent" rows=8 cols=50></textarea>
+					</p>
+					<p>
+						<input type="submit" id="submit" name="submit" value="Save template" />
+						<input type="hidden" id="formType"
+							name="formType" value="assigneeTemplate" />
+					</p>
+				</form>
+				<div id="templateResponse"></div>
+			</span>
+
+		</section><!-- #end content area -->
       
       
     <!-- sidebar -->    
@@ -80,7 +128,8 @@
         <h2>Options</h2>
             <nav id="secondary-navigation">
                     <ul>
-                        <li class="current"><a href="#">Import employee details</a></li>
+                        <li class="current" name="importEmployeeDetails"><a href="#">Import employee details</a></li>
+                        <li name="configureAssigneeTemplate"><a href="#">Configure assignee template</a></li>
                         <li><a href="#">Manage preferences(Under construction)</a></li>
                     </ul>
              </nav>
@@ -103,6 +152,7 @@
 
 <!-- jQuery -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>')</script>
 <script src="http://hayageek.github.io/jQuery-Upload-File/jquery.uploadfile.min.js"></script>
 <script defer src="js/flexslider/jquery.flexslider-min.js"></script>
@@ -128,6 +178,74 @@
 				$("#eventsmessage").html($("#eventsmessage").html()+"<br/>Error occurred while uploading the following files: "+JSON.stringify(files));
 			}
 		});
+		
+		function switchDiv(divId){
+			$("#content span").each(function(index, item){
+				if($(item).prop("id") === divId){
+					$(item).show();
+					$("li[name='"+divId+"']").addClass("current");
+				}
+				else{
+					$(item).hide();
+					$("li[name='"+$(item).prop("id")+"']").removeClass("current");
+				}
+			});
+		}
+		
+		switchDiv("importEmployeeDetails");
+		$("li[name='importEmployeeDetails']").click(function(){
+			switchDiv("importEmployeeDetails")
+		});
+		$("li[name='configureAssigneeTemplate']").click(function(){
+			switchDiv("configureAssigneeTemplate");
+		});
+		
+		$("#sendMail").validate({
+			rules : {
+				cc : {
+					email : true
+				},
+				subject : {
+					required : true
+				},
+				mailContent : {
+					required : true
+				}
+			},
+			messages : {
+				subject : {
+					required : "Subject required"
+				},
+				mailContent : {
+					required : "Please enter mail content"
+				}
+			}
+		});
+
+		function submitForm(url){
+			if($("#sendMail").valid())
+			{
+				$("#submit").val("Saving template..");
+				$.ajax({
+					type : "POST",
+					url : url,
+					data : $("#sendMail").serialize(),
+					success : function(data) {
+						$("#templateResponse").html(data);
+						$("#submit").val("Save template");
+					}
+				});
+			}
+		}
+		
+		$("#sendMail").submit(
+			function() {
+				var url = "emailTemplate.do";
+				submitForm(url);
+				return false;
+		});
+		
+		
 	});
 </script>
 </body>

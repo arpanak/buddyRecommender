@@ -3,7 +3,6 @@ package com.recommender.services;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.annotation.PostConstruct;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,38 +25,43 @@ public class ConfigurationService
 	@Autowired
 	private EmployeeService employeeService;
 
-	@PostConstruct
-	public void saveSampleTemplate()
+	/**
+	 * Saves the provided assignee email template details.
+	 * 
+	 * @param cc Default CC email address
+	 * @param subject Default email subject
+	 * @param mailContent Mail content template
+	 */
+	public void saveAssigneeTemplate(String cc, String subject, String mailContent)
 	{
 		Configuration assigneeTemplate = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
-		if (assigneeTemplate == null)
+		if(assigneeTemplate == null)
 		{
-			String template = "Hello " + ASSIGNEE_NAME + ", You have been assigned to be the buddy for " + JOINEE_NAME
-					+ ". Regards, HR";
 			assigneeTemplate = new Configuration();
-			assigneeTemplate.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
-			assigneeTemplate.setContent(template);
-			configurationRepository.saveAndFlush(assigneeTemplate);
 		}
+		assigneeTemplate.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
+		assigneeTemplate.setContent(mailContent);
+		configurationRepository.save(assigneeTemplate);
+		
 		Configuration assigneeSubject = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
-		if (assigneeSubject == null)
+		if(assigneeSubject == null)
 		{
 			assigneeSubject = new Configuration();
-			assigneeSubject.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
-			assigneeSubject.setContent("You have been assigned as a buddy for a new joinee");
-			configurationRepository.saveAndFlush(assigneeSubject);
 		}
+		assigneeSubject.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
+		assigneeSubject.setContent(subject);
+		configurationRepository.save(assigneeSubject);
+		
 		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-		if (assigneeCC == null)
+		if(assigneeCC == null)
 		{
 			assigneeCC = new Configuration();
-			assigneeCC.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-			assigneeCC.setContent("ashwin.vinod@talentica.com");
-			configurationRepository.saveAndFlush(assigneeCC);
 		}
-
+		assigneeCC.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
+		assigneeCC.setContent(cc);
+		configurationRepository.save(assigneeCC);
 	}
 
 	/**
