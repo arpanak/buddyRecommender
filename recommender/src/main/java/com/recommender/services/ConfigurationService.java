@@ -91,7 +91,7 @@ public class ConfigurationService
 		emailData.put(EMAIL_CONTENT, emailContent);
 		emailData.put(TO_ADDRESS, toAddress);
 		emailData.put(SUBJECT, subject);
-		emailData.put("CC", cc);
+		emailData.put("cc", cc);
 		return emailData;
 	}
 

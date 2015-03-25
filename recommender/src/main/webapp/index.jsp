@@ -337,6 +337,8 @@
 															url : "emailTemplate.do",
 															data : {joineeName:$("#name").val(), employeeId:$("#responseContent a.open-window").prop("id")},
 															success : function(email) {
+																$("#selectedEmployeeId").val($("a.open-window").prop("id"));
+																$("a.open-window").removeClass("open-window");
 																$("#to").val(email.toAddress);
 																$("#cc").val(email.cc);
 																$("#subject").val(email.subject);

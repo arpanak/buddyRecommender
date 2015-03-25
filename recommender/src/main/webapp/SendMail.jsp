@@ -9,6 +9,9 @@
 #sendMail textarea.error {
 	border: 1px solid red;
 }
+#to, #cc, #subject {
+	width: 400px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -61,7 +64,6 @@
 		
 		$("#sendMail").submit(
 			function() {
-				$("#selectedEmployeeId").val($("a.open-window").prop("id"));
 				var url = "assignment.do";
 				submitForm(url);
 				return false;
