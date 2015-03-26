@@ -3,12 +3,14 @@ package com.recommender.services;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.recommender.db.Configuration;
 import com.recommender.db.Configuration.CONFIGURATION_TYPE;
 import com.recommender.db.Employee;
+import com.recommender.frontend.Email;
 import com.recommender.repositories.ConfigurationRepository;
 
 @Service
@@ -77,47 +79,60 @@ public class ConfigurationService
 	public JSONObject getAssigneeEmailData(String employeeId, String joineeName)
 	{
 		Employee assignee = employeeService.findEmployeeById(employeeId);
-		Configuration assigneeTemplate = configurationRepository
-				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
-		Configuration assigneeSubject = configurationRepository
-				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
-		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-		String cc = assigneeCC.getContent();
-		String subject = assigneeSubject.getContent();
-		String template = assigneeTemplate.getContent();
+
+		Email email = getEmailDataFromTemplate();
 
 		Map<String, String> placeholderName2Values = new HashMap<String, String>();
 		placeholderName2Values.put(ASSIGNEE_NAME, assignee.getName());
 		placeholderName2Values.put(JOINEE_NAME, joineeName);
-		String emailContent = resolveTemplatePlaceholders(template, placeholderName2Values);
+		String emailContent = resolveTemplatePlaceholders(email.getMailContent(), placeholderName2Values);
 		String toAddress = generateToAddress(assignee);
 		JSONObject emailData = new JSONObject();
 		emailData.put(EMAIL_CONTENT, emailContent);
 		emailData.put(TO_ADDRESS, toAddress);
-		emailData.put(SUBJECT, subject);
-		emailData.put("cc", cc);
+		emailData.put(SUBJECT, email.getSubject());
+		emailData.put("cc", email.getCc());
 		return emailData;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject getAssigneeEmailTemplate()
 	{
+		Email email = getEmailDataFromTemplate();
+		
+		JSONObject emailData = new JSONObject();
+		emailData.put(EMAIL_CONTENT, email.getMailContent());
+		emailData.put(SUBJECT, email.getSubject());
+		emailData.put("cc", email.getCc());
+		return emailData;
+	}
+
+	private Email getEmailDataFromTemplate()
+	{
+		String cc = "";
+		String subject = "";
+		String template = "";
 		Configuration assigneeTemplate = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
 		Configuration assigneeSubject = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
 		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-		String cc = assigneeCC.getContent();
-		String subject = assigneeSubject.getContent();
-		String template = assigneeTemplate.getContent();
 		
-		JSONObject emailData = new JSONObject();
-		emailData.put(EMAIL_CONTENT, template);
-		emailData.put(SUBJECT, subject);
-		emailData.put("cc", cc);
-		return emailData;
+		if(assigneeTemplate != null && assigneeSubject != null && assigneeCC != null)
+		{
+			cc = assigneeCC.getContent();
+			subject = assigneeSubject.getContent();
+			template = assigneeTemplate.getContent();
+		}
+		if (StringUtils.isBlank(template))
+		{
+			template = "Hi "+ASSIGNEE_NAME+", You have been selected to be a buddy for "+JOINEE_NAME+". Thanks, HR";
+		}
+		Email email = new Email("", "", cc, subject, template);
+		
+		return email;
 	}
-
+	
 	private String generateToAddress(Employee assignee)
 	{
 		String name = assignee.getName();

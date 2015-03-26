@@ -36,6 +36,9 @@
 #to, #cc, #subject {
 	width: 400px;
 }
+#mailContent{
+	width: 520px;
+}
 </style>
 <!-- end CSS-->
     

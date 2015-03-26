@@ -29,7 +29,14 @@ public class DataImportService
 	public void importEmployeeDetails(String csvFileContents)
 	{
 		List<Employee> employees = getEmployeesFromCsv(csvFileContents);
-		employeeRepository.save(employees);
+		List<Employee> existingEmployees = employeeRepository.findAll();
+		for(Employee employeeToSave : employees)
+		{
+			if(!existingEmployees.contains(employeeToSave))
+			{
+				employeeRepository.save(employeeToSave);
+			}
+		}
 		LOGGER.info("Imported employee records: {} entries saved ", employees.size());
 	}
 	
