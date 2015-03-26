@@ -16,6 +16,9 @@ import com.recommender.services.ConfigurationService;
 public class EmailTemplateServlet implements HttpRequestHandler
 {
 
+	private static final String GET_ASSIGNEE_TEMPLATE = "getAssigneeTemplate";
+	private static final String TEMPLATE_DETAILS_SAVED = "Template details saved";
+	private static final String ASSIGNEE_TEMPLATE = "assigneeTemplate";
 	private static final String TEXT_HTML = "text/html";
 	private static final String FORM_TYPE = "formType";
 	private static final String APPLICATION_JSON = "application/json";
@@ -31,7 +34,7 @@ public class EmailTemplateServlet implements HttpRequestHandler
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String formType = request.getParameter(FORM_TYPE);
-		if("assigneeTemplate".equals(formType))
+		if(ASSIGNEE_TEMPLATE.equals(formType))
 		{
 			String cc = request.getParameter(CC);
 			String subject = request.getParameter(SUBJECT);
@@ -41,7 +44,14 @@ public class EmailTemplateServlet implements HttpRequestHandler
 			
 			PrintWriter out = response.getWriter();
 			response.setContentType(TEXT_HTML);
-			out.print("Template details saved");
+			out.print(TEMPLATE_DETAILS_SAVED);
+			IOUtils.closeQuietly(out);
+		}
+		else if(GET_ASSIGNEE_TEMPLATE.equals(formType))
+		{
+			PrintWriter out = response.getWriter();
+			response.setContentType(APPLICATION_JSON);
+			out.print(configurationService.getAssigneeEmailTemplate().toJSONString());
 			IOUtils.closeQuietly(out);
 		}
 		else

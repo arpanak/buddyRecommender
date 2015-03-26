@@ -98,6 +98,25 @@ public class ConfigurationService
 		emailData.put("cc", cc);
 		return emailData;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public JSONObject getAssigneeEmailTemplate()
+	{
+		Configuration assigneeTemplate = configurationRepository
+				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
+		Configuration assigneeSubject = configurationRepository
+				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
+		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
+		String cc = assigneeCC.getContent();
+		String subject = assigneeSubject.getContent();
+		String template = assigneeTemplate.getContent();
+		
+		JSONObject emailData = new JSONObject();
+		emailData.put(EMAIL_CONTENT, template);
+		emailData.put(SUBJECT, subject);
+		emailData.put("cc", cc);
+		return emailData;
+	}
 
 	private String generateToAddress(Employee assignee)
 	{

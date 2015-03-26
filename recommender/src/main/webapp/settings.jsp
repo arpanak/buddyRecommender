@@ -94,9 +94,9 @@
 			</span>
 			
 			<span id="configureAssigneeTemplate">
-				<h3>Configure assignee template</h3>
+				<h3>Configure assignee email template</h3>
 				<br />
-
+				
 				<form name="sendMail" id="sendMail" action="emailTemplate.do" method="post">
 					<table>
 						<tr>
@@ -196,8 +196,19 @@
 		$("li[name='importEmployeeDetails']").click(function(){
 			switchDiv("importEmployeeDetails")
 		});
+		
 		$("li[name='configureAssigneeTemplate']").click(function(){
 			switchDiv("configureAssigneeTemplate");
+			$.ajax({
+				type : "POST",
+				url : "emailTemplate.do",
+				data : {formType:"getAssigneeTemplate"},
+				success : function(email) {
+					$("#cc").val(email.cc);
+					$("#subject").val(email.subject);
+					$("#mailContent").val(email.emailContent);
+				}
+			});
 		});
 		
 		$("#sendMail").validate({
