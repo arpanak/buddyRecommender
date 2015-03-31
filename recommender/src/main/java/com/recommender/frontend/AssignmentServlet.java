@@ -17,6 +17,7 @@ import com.recommender.services.EmployeeService;
 @Component("assignmentServlet")
 public class AssignmentServlet implements HttpRequestHandler
 {
+	private static final String JOINEE = "joinee";
 	private static final String SELECTED_EMPLOYEE_ID = "selectedEmployeeId";
 	private static final String FROM_ADDRESS = "buddyRecommender@gmail.com";
 	private static final String MAIL_CONTENT = "mailContent";
@@ -38,7 +39,7 @@ public class AssignmentServlet implements HttpRequestHandler
 		String employeeId = request.getParameter(SELECTED_EMPLOYEE_ID);
 		
 		Email emailToSend = new Email(to, FROM_ADDRESS, cc, subject, mailContent);
-		Joinee joinee = (Joinee) request.getSession().getAttribute("joinee");
+		Joinee joinee = (Joinee) request.getSession().getAttribute(JOINEE);
 		Employee buddyToAssign = employeeService.findEmployeeById(employeeId);
 
 		ASSIGNMENT_STATUS assignmentResult = assignmentService.assignAndMailBuddy(buddyToAssign, joinee, emailToSend);

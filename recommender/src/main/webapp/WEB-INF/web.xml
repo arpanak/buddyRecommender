@@ -21,6 +21,10 @@
 	</listener>
 
 	<servlet>
+		<servlet-name>buddyServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>emailTemplateServlet</servlet-name>
 		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
 	</servlet>
@@ -59,5 +63,9 @@
 	<servlet-mapping>
 		<servlet-name>assignmentServlet</servlet-name>
 		<url-pattern>/assignment.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>buddyServlet</servlet-name>
+		<url-pattern>/buddy.do</url-pattern>
 	</servlet-mapping>
 </web-app>

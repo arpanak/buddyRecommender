@@ -146,45 +146,63 @@
 		</div>
 	</section>
 	</div>
-	<!-- main content area -->
-	<div id="main" class="wrapper">
+		<!-- main content area -->
+		<div id="main" class="wrapper">
+			<section id="content">
+			 <br />
+				<span id="recommender">
+					<form action="recommender.do" method="post" id="joineeDetailsForm">
 
-		<br />
-		<form action="recommender.do" method="post" id="joineeDetailsForm">
-			
-			<table>
-				<tr>
-					<td><label>Joinee's name:</label></td>
-					<td><input type="text" name="name" id="name"/></td>
-				</tr>
-				<tr>
-					<td><label>Joinee's college:</label></td>
-					<td><input type="text" name="college" id="college"/></td>
-				</tr>
-				<tr>
-					<td><label>Joinee's year of graduation:</label></td>
-					<td><input type="text" name="passoutyear" id="passoutyear"/></td>
-				</tr>
-				<tr>
-					<td><label>Joinee's team:</label></td>
-					<td><input type="text" name="team"  id="team"/></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="Suggest buddies" id="suggestBuddies" class="suggestBuddies"/></td>
-				</tr>
-			</table>
-			<label></label>
-		</form>
-		<br />
-		<div id="responseContent"></div>
-			<div id="dialog" title="Send mail to assigned buddy"></div>
+						<table>
+							<tr>
+								<td><label>Joinee's name:</label></td>
+								<td><input type="text" name="name" id="name" /></td>
+							</tr>
+							<tr>
+								<td><label>Joinee's college:</label></td>
+								<td><input type="text" name="college" id="college" /></td>
+							</tr>
+							<tr>
+								<td><label>Joinee's year of graduation:</label></td>
+								<td><input type="text" name="passoutyear" id="passoutyear" /></td>
+							</tr>
+							<tr>
+								<td><label>Joinee's team:</label></td>
+								<td><input type="text" name="team" id="team" /></td>
+							</tr>
+							<tr>
+								<td><input type="submit" value="Suggest buddies"
+									id="suggestBuddies" class="suggestBuddies" /></td>
+							</tr>
+						</table>
+						<label></label>
+					</form> <br />
+					<div id="responseContent"></div>
+					<div id="dialog" title="Send mail to assigned buddy"></div>
 
+				</span>
+				<span id="trackBuddies">
+					<div id="assignedBuddiesContainer"></div>
+				</span>
+			</section>
+
+			<!-- sidebar -->
+			<aside>
+				<h2>Options</h2>
+				<nav id="secondary-navigation">
+					<ul>
+						<li class="current" name="recommender"><a href="#">Buddy recommender</a></li>
+						<li name="trackBuddies"><a href="#">Track buddies</a></li>
+					</ul>
+				</nav>
+			</aside>
+			<!-- #end sidebar -->
 
 		</div>
-	<!-- #end div #main .wrapper -->
+		<!-- #end div #main .wrapper -->
 
 
-	<!-- footer area -->
+		<!-- footer area -->
 	<footer>
 		<div id="colophon" class="wrapper clearfix">Buddy recommender
 			app</div>
@@ -210,7 +228,6 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-      
 	<script>
 		window.jQuery
 				|| document
@@ -218,6 +235,7 @@
 	</script>
 
 	<script defer src="js/flexslider/jquery.flexslider-min.js"></script>
+	<script defer src="js/jquery.jtable.js"></script>
 
 	<!-- fire ups - read this file!  -->
 	<script src="js/main.js"></script>
@@ -259,6 +277,27 @@
 	
 		$(document).ready(
 				function() {
+					function switchDiv(divId){
+						$("#content span").each(function(index, item){
+							if($(item).prop("id") === divId){
+								$(item).show();
+								$("li[name='"+divId+"']").addClass("current");
+							}
+							else{
+								$(item).hide();
+								$("li[name='"+$(item).prop("id")+"']").removeClass("current");
+							}
+						});
+					}
+					
+					switchDiv("recommender");
+					$("li[name='recommender']").click(function(){
+						switchDiv("recommender")
+					});
+					$("li[name='trackBuddies']").click(function(){
+						switchDiv("trackBuddies")
+					});
+					
 					$( "#dialog" ).dialog({
 			               autoOpen: false,
 			               open : initializeDialogContent(),
@@ -355,7 +394,28 @@
 								
 					});
 					
-				})
+					 $('#assignedBuddiesContainer').jtable({
+				            title: 'Assigned buddies',
+				            actions: {
+				                listAction: '/buddy.do'
+				            },
+				            fields: {
+				                buddyId: {
+				                    key: true,
+				                    list: false
+				                },
+				                buddyName: {
+				                    title: 'Buddy Name',
+				                    width: '40%'
+				                },
+				                assigneeName: {
+				                    title: 'Joinee Name',
+				                    width: '20%'
+				                }
+				            }
+				        });
+					
+				});
 	</script>
 </body>
 </html>
