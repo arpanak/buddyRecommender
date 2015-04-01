@@ -25,6 +25,11 @@ import com.recommender.services.EmployeeService;
 @Component("buddyServlet")
 public class BuddyServlet implements HttpRequestHandler
 {
+	private static final String OK = "OK";
+	private static final String TOTAL_RECORD_COUNT = "TotalRecordCount";
+	private static final String RECORDS = "Records";
+	private static final String RESULT = "Result";
+	
 	@Autowired
 	private EmployeeService employeeService;
 	
@@ -32,7 +37,7 @@ public class BuddyServlet implements HttpRequestHandler
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		List<Employee> buddies = employeeService.getAllAssignedEmployees();
-		JSONArray jsonResponse = new JSONArray();
+		JSONArray buddyRecords = new JSONArray();
 		for(Employee buddy : buddies)
 		{
 			for(Joinee joinee : buddy.getAssignedJoinees())
@@ -42,11 +47,15 @@ public class BuddyServlet implements HttpRequestHandler
 				entry.put("buddyName", buddy.getName());
 				entry.put("assigneeName", joinee.getName());
 				entry.put("assigneeId", joinee.getId());
-				jsonResponse.add(entry);
+				buddyRecords.add(entry);
 			}
 		}
 
 		PrintWriter out = response.getWriter();
+		JSONObject jsonResponse = new JSONObject();
+		jsonResponse.put(RESULT, OK);
+		jsonResponse.put(RECORDS, buddyRecords);
+		jsonResponse.put(TOTAL_RECORD_COUNT, buddyRecords.size());
 		out.print(jsonResponse.toJSONString());
 		IOUtils.closeQuietly(out);
 	}
