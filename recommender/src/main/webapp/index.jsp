@@ -35,6 +35,13 @@
 	padding-left: 15px;
 }
 
+#assignedBuddiesContainer td {
+	border-bottom: 1px solid #e2e2e2;
+	border-top: 1px solid #e2e2e2;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
 #joineeDetailsForm label.error {
 	color: red;
 }
@@ -226,7 +233,7 @@
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<script src="js/jquery-ui.js"></script>
 		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 	<script>
 		window.jQuery
@@ -275,6 +282,40 @@
 		
 	}
 	
+	function initializeAssigneeTrackerTable(containerElementId){
+
+		 $("#"+containerElementId).jtable({
+	            title: 'Assigned buddies',
+	            actions: {
+	                listAction: '/recommender/buddy.do'
+	            },
+	            ajaxSettings: {
+	                contentType: 'application/json'
+	            },
+	            fields: {
+	                buddyId: {
+	                    key: true,
+	                    list: false
+	                },
+	                buddyName: {
+	                    title: 'Buddy Name',
+	                    width: '40%'
+	                },
+	                assigneeName: {
+	                    title: 'Joinee Name',
+	                    width: '20%'
+	                }
+	            },
+	            recordsLoaded: function(event, data) {
+	            	$("#"+containerElementId+" table tr:even").css(
+	    					"background-color", "#f3f3f3");
+	            }
+	        });
+		 
+		 $("#"+containerElementId).jtable("load");	
+		 
+	}
+	
 		$(document).ready(
 				function() {
 					function switchDiv(divId){
@@ -292,10 +333,14 @@
 					
 					switchDiv("recommender");
 					$("li[name='recommender']").click(function(){
-						switchDiv("recommender")
+						switchDiv("recommender");
 					});
 					$("li[name='trackBuddies']").click(function(){
-						switchDiv("trackBuddies")
+						switchDiv("trackBuddies");
+						if($('#assignedBuddiesContainer table.jtable').length!=0){
+							$('#assignedBuddiesContainer').jtable("destroy");
+						}
+						initializeAssigneeTrackerTable('assignedBuddiesContainer');
 					});
 					
 					$( "#dialog" ).dialog({
@@ -393,27 +438,6 @@
 								return false;
 								
 					});
-					
-					 $('#assignedBuddiesContainer').jtable({
-				            title: 'Assigned buddies',
-				            actions: {
-				                listAction: '/buddy.do'
-				            },
-				            fields: {
-				                buddyId: {
-				                    key: true,
-				                    list: false
-				                },
-				                buddyName: {
-				                    title: 'Buddy Name',
-				                    width: '40%'
-				                },
-				                assigneeName: {
-				                    title: 'Joinee Name',
-				                    width: '20%'
-				                }
-				            }
-				        });
 					
 				});
 	</script>
