@@ -19,6 +19,16 @@
 		<property name="password" value="ashwin" />
 		<property name="initialSize" value="3" />
 		<property name="maxActive" value="10" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="true" />
+		<property name="maxWait" value="5000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="maxIdle" value="10" />
+		<property name="removeAbandonedTimeout" value="60" />
+		<property name="logAbandoned" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<property name="minEvictableIdleTimeMillis" value="60000" />
 	</bean>
 
 	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
