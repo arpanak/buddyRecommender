@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.recommender.db.Joinee;
 import com.recommender.repositories.JoineeRepository;
 
+/**
+ * Contains logic related to joinees.
+ * 
+ * @author ashwinvinod
+ *
+ */
 public class JoineeService
 {
 

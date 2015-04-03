@@ -7,6 +7,12 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import com.recommender.frontend.Email;
 
+/**
+ * Email sending endpoint.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Service
 public class MailService
 {

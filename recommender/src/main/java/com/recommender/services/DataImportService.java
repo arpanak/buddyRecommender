@@ -12,34 +12,40 @@ import com.recommender.db.Employee;
 import com.recommender.repositories.EmployeeRepository;
 import com.recommender.utilities.CsvBeanMapper;
 
+/**
+ * This class contains functionality to import data from external sources.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Service
 public class DataImportService
 {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataImportService.class);
-	
+
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	private String[] csvColumns = new String[] { "name", "gender", "graduateDegree", "graduateStream", "graduateInstitute",
 			"graduateYear", "postGraduateDegree", "postGraduateStream", "postGraduateInstitute", "postGraduateYear",
 			"jobFunction", "currentTeam", "hr", "reportingManager", "seniorManager", "joiningDate",
 			"experienceCalculatedAsOf", "workingWithUsSince", "careerLevel", "currentDesignation" };
-	
+
 	public void importEmployeeDetails(String csvFileContents)
 	{
 		List<Employee> employees = getEmployeesFromCsv(csvFileContents);
 		List<Employee> existingEmployees = employeeRepository.findAll();
-		for(Employee employeeToSave : employees)
+		for (Employee employeeToSave : employees)
 		{
-			if(!existingEmployees.contains(employeeToSave))
+			if (!existingEmployees.contains(employeeToSave))
 			{
 				employeeRepository.save(employeeToSave);
 			}
 		}
 		LOGGER.info("Imported employee records: {} entries saved ", employees.size());
 	}
-	
+
 	/**
 	 * Get list of Employee instances corresponding to existing employees.
 	 * 
@@ -52,7 +58,7 @@ public class DataImportService
 				getCsvEntryToEntityConverter());
 		return result;
 	}
-	
+
 	private BeanUtilsBean getCsvEntryToEntityConverter()
 	{
 		BeanUtilsBean beanUtilsBean = new BeanUtilsBean(new ConvertUtilsBean()

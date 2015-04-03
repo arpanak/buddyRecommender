@@ -3,11 +3,18 @@ package com.recommender.db;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Data;
 
+/**
+ * Represents a configuration setting, such as an email template.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Entity
+@Data
 public class Configuration
 {
-
 	public enum CONFIGURATION_TYPE
 	{
 		ASSIGNEE_EMAIL_TEMPLATE,
@@ -21,35 +28,5 @@ public class Configuration
 	private Integer id;
 	private CONFIGURATION_TYPE configurationType;
 	private String content;
-
-	public Integer getId()
-	{
-		return id;
-	}
-
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
-
-	public CONFIGURATION_TYPE getConfigurationType()
-	{
-		return configurationType;
-	}
-
-	public void setConfigurationType(CONFIGURATION_TYPE configurationType)
-	{
-		this.configurationType = configurationType;
-	}
-
-	public String getContent()
-	{
-		return content;
-	}
-
-	public void setContent(String content)
-	{
-		this.content = content;
-	}
 
 }

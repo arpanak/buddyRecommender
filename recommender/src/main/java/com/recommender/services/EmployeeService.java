@@ -9,8 +9,7 @@ import com.recommender.db.Employee;
 import com.recommender.repositories.EmployeeRepository;
 
 /**
- * Contains logic to retrieve data from csv and return object representations of
- * data.
+ * Contains logic related to employees.
  * 
  * @author AshwinV
  */

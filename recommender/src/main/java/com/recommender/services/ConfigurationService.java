@@ -13,6 +13,12 @@ import com.recommender.db.Employee;
 import com.recommender.frontend.Email;
 import com.recommender.repositories.ConfigurationRepository;
 
+/**
+ * Contains code dealing with configuration - email templates, preferences etc.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Service
 public class ConfigurationService
 {
@@ -21,7 +27,7 @@ public class ConfigurationService
 	private static final String EMAIL_CONTENT = "emailContent";
 	private static final String JOINEE_NAME = "$joineeName";
 	private static final String ASSIGNEE_NAME = "$assigneeName";
-	
+
 	@Autowired
 	private ConfigurationRepository configurationRepository;
 	@Autowired
@@ -30,34 +36,37 @@ public class ConfigurationService
 	/**
 	 * Saves the provided assignee email template details.
 	 * 
-	 * @param cc Default CC email address
-	 * @param subject Default email subject
-	 * @param mailContent Mail content template
+	 * @param cc
+	 *            Default CC email address
+	 * @param subject
+	 *            Default email subject
+	 * @param mailContent
+	 *            Mail content template
 	 */
 	public void saveAssigneeTemplate(String cc, String subject, String mailContent)
 	{
 		Configuration assigneeTemplate = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
-		if(assigneeTemplate == null)
+		if (assigneeTemplate == null)
 		{
 			assigneeTemplate = new Configuration();
 		}
 		assigneeTemplate.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_TEMPLATE);
 		assigneeTemplate.setContent(mailContent);
 		configurationRepository.save(assigneeTemplate);
-		
+
 		Configuration assigneeSubject = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
-		if(assigneeSubject == null)
+		if (assigneeSubject == null)
 		{
 			assigneeSubject = new Configuration();
 		}
 		assigneeSubject.setConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
 		assigneeSubject.setContent(subject);
 		configurationRepository.save(assigneeSubject);
-		
+
 		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-		if(assigneeCC == null)
+		if (assigneeCC == null)
 		{
 			assigneeCC = new Configuration();
 		}
@@ -94,12 +103,12 @@ public class ConfigurationService
 		emailData.put("cc", email.getCc());
 		return emailData;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public JSONObject getAssigneeEmailTemplate()
 	{
 		Email email = getEmailDataFromTemplate();
-		
+
 		JSONObject emailData = new JSONObject();
 		emailData.put(EMAIL_CONTENT, email.getMailContent());
 		emailData.put(SUBJECT, email.getSubject());
@@ -117,8 +126,8 @@ public class ConfigurationService
 		Configuration assigneeSubject = configurationRepository
 				.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_SUBJECT);
 		Configuration assigneeCC = configurationRepository.findOneByConfigurationType(CONFIGURATION_TYPE.ASSIGNEE_EMAIL_CC);
-		
-		if(assigneeTemplate != null && assigneeSubject != null && assigneeCC != null)
+
+		if (assigneeTemplate != null && assigneeSubject != null && assigneeCC != null)
 		{
 			cc = assigneeCC.getContent();
 			subject = assigneeSubject.getContent();
@@ -126,13 +135,13 @@ public class ConfigurationService
 		}
 		if (StringUtils.isBlank(template))
 		{
-			template = "Hi "+ASSIGNEE_NAME+", You have been selected to be a buddy for "+JOINEE_NAME+". Thanks, HR";
+			template = "Hi " + ASSIGNEE_NAME + ", You have been selected to be a buddy for " + JOINEE_NAME + ". Thanks, HR";
 		}
 		Email email = new Email("", "", cc, subject, template);
-		
+
 		return email;
 	}
-	
+
 	private String generateToAddress(Employee assignee)
 	{
 		String name = assignee.getName();

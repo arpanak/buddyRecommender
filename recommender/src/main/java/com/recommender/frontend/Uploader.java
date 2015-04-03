@@ -11,6 +11,12 @@ import org.springframework.web.HttpRequestHandler;
 import com.recommender.services.DataImportService;
 import com.recommender.services.RecommenderService;
 
+/**
+ * This servlet handles requests for file uploads from the browser.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Component("uploaderServlet")
 public class Uploader implements HttpRequestHandler
 {

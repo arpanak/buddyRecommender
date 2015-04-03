@@ -126,13 +126,13 @@ public class LuceneHelper
 	{
 		BooleanQuery employeeQuery = buildQuery(filterName2filterValue);
 
-		// 3. search
+		// 2. search
 		IndexSearcher searcher = new IndexSearcher(reader);
 		TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage);
 		searcher.search(employeeQuery, collector);
 		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
-		// 4. display results
+		// 3. display results
 		System.out.println("Found " + hits.length + " hits.");
 		List<Employee> recommendedEmployees = new ArrayList<Employee>();
 		for (int i = 0; i < hits.length; ++i)

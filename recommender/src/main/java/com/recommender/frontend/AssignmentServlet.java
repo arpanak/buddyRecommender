@@ -14,6 +14,12 @@ import com.recommender.services.AssignmentService;
 import com.recommender.services.AssignmentService.ASSIGNMENT_STATUS;
 import com.recommender.services.EmployeeService;
 
+/**
+ * This servlet handles requests related to assignment of buddies.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Component("assignmentServlet")
 public class AssignmentServlet implements HttpRequestHandler
 {
@@ -37,20 +43,20 @@ public class AssignmentServlet implements HttpRequestHandler
 		String subject = request.getParameter(SUBJECT);
 		String mailContent = request.getParameter(MAIL_CONTENT);
 		String employeeId = request.getParameter(SELECTED_EMPLOYEE_ID);
-		
+
 		Email emailToSend = new Email(to, FROM_ADDRESS, cc, subject, mailContent);
 		Joinee joinee = (Joinee) request.getSession().getAttribute(JOINEE);
 		Employee buddyToAssign = employeeService.findEmployeeById(employeeId);
 
 		ASSIGNMENT_STATUS assignmentResult = assignmentService.assignAndMailBuddy(buddyToAssign, joinee, emailToSend);
-		
+
 		PrintWriter out = response.getWriter();
 		out.println(assignmentResult.getStatus());
-		if(ASSIGNMENT_STATUS.SUCCESS.equals(assignmentResult))
+		if (ASSIGNMENT_STATUS.SUCCESS.equals(assignmentResult))
 		{
-			out.println("Email sent to assigned buddy at "+to);
+			out.println("Email sent to assigned buddy at " + to);
 		}
-		
+
 	}
 
 }

@@ -12,6 +12,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
 import com.recommender.services.ConfigurationService;
 
+/**
+ * This servlet handles requests related to email templates.
+ * 
+ * @author ashwinvinod
+ *
+ */
 @Component("emailTemplateServlet")
 public class EmailTemplateServlet implements HttpRequestHandler
 {
@@ -34,20 +40,20 @@ public class EmailTemplateServlet implements HttpRequestHandler
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String formType = request.getParameter(FORM_TYPE);
-		if(ASSIGNEE_TEMPLATE.equals(formType))
+		if (ASSIGNEE_TEMPLATE.equals(formType))
 		{
 			String cc = request.getParameter(CC);
 			String subject = request.getParameter(SUBJECT);
 			String mailContent = request.getParameter(MAIL_CONTENT);
-			
+
 			configurationService.saveAssigneeTemplate(cc, subject, mailContent);
-			
+
 			PrintWriter out = response.getWriter();
 			response.setContentType(TEXT_HTML);
 			out.print(TEMPLATE_DETAILS_SAVED);
 			IOUtils.closeQuietly(out);
 		}
-		else if(GET_ASSIGNEE_TEMPLATE.equals(formType))
+		else if (GET_ASSIGNEE_TEMPLATE.equals(formType))
 		{
 			PrintWriter out = response.getWriter();
 			response.setContentType(APPLICATION_JSON);
@@ -59,13 +65,13 @@ public class EmailTemplateServlet implements HttpRequestHandler
 			String employeeId = request.getParameter(EMPLOYEE_ID);
 			String joineeName = request.getParameter(JOINEE_NAME);
 			JSONObject emailData = configurationService.getAssigneeEmailData(employeeId, joineeName);
-			
+
 			PrintWriter out = response.getWriter();
 			response.setContentType(APPLICATION_JSON);
 			out.print(emailData.toJSONString());
 			IOUtils.closeQuietly(out);
 		}
-		
+
 	}
 
 }
