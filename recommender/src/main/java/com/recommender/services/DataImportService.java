@@ -34,14 +34,16 @@ public class DataImportService
 	{
 		List<Employee> employees = getEmployeesFromCsv(csvFileContents);
 		List<Employee> existingEmployees = employeeRepository.findAll();
+		int employeesSaved = 0;
 		for (Employee employeeToSave : employees)
 		{
 			if (!existingEmployees.contains(employeeToSave))
 			{
 				employeeRepository.save(employeeToSave);
+				employeesSaved++;
 			}
 		}
-		LOGGER.info("Imported employee records: {} entries saved ", employees.size());
+		LOGGER.info("Imported employee records: {} entries saved ", employeesSaved);
 	}
 
 	/**

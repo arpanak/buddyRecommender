@@ -22,6 +22,7 @@ import com.recommender.repositories.ConfigurationRepository;
 @Service
 public class ConfigurationService
 {
+	private static final String CC = "cc";
 	private static final String SUBJECT = "subject";
 	private static final String TO_ADDRESS = "toAddress";
 	private static final String EMAIL_CONTENT = "emailContent";
@@ -95,12 +96,11 @@ public class ConfigurationService
 		placeholderName2Values.put(ASSIGNEE_NAME, assignee.getName());
 		placeholderName2Values.put(JOINEE_NAME, joineeName);
 		String emailContent = resolveTemplatePlaceholders(email.getMailContent(), placeholderName2Values);
-		String toAddress = generateToAddress(assignee);
 		JSONObject emailData = new JSONObject();
 		emailData.put(EMAIL_CONTENT, emailContent);
-		emailData.put(TO_ADDRESS, toAddress);
+		emailData.put(TO_ADDRESS, assignee.getEmailAddress());
 		emailData.put(SUBJECT, email.getSubject());
-		emailData.put("cc", email.getCc());
+		emailData.put(CC, email.getCc());
 		return emailData;
 	}
 
@@ -112,7 +112,7 @@ public class ConfigurationService
 		JSONObject emailData = new JSONObject();
 		emailData.put(EMAIL_CONTENT, email.getMailContent());
 		emailData.put(SUBJECT, email.getSubject());
-		emailData.put("cc", email.getCc());
+		emailData.put(CC, email.getCc());
 		return emailData;
 	}
 
@@ -140,14 +140,6 @@ public class ConfigurationService
 		Email email = new Email("", "", cc, subject, template);
 
 		return email;
-	}
-
-	private String generateToAddress(Employee assignee)
-	{
-		String name = assignee.getName();
-		String[] parsedName = name.split(" ");
-		String toAddress = parsedName[0] + "." + parsedName[1] + "@talentica.com";
-		return toAddress;
 	}
 
 	private String resolveTemplatePlaceholders(String template, Map<String, String> placeholderName2Values)

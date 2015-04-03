@@ -50,62 +50,62 @@
 	border: 1px solid red;
 }
 
-.suggestBuddies{
-	  display: block;
-  float: left;
-  margin: 10px 15px 10px 0;
-  padding: 10px;
-  text-decoration: none;
+.suggestBuddies {
+	display: block;
+	float: left;
+	margin: 10px 15px 10px 0;
+	padding: 10px;
+	text-decoration: none;
 }
 
-    .ui-autocomplete {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    float: left;
-    display: none;
-    min-width: 160px;   
-    padding: 4px 0;
-    margin: 0 0 10px 25px;
-    list-style: none;
-    background-color: #ffffff;
-    border-color: #ccc;
-    border-color: rgba(0, 0, 0, 0.2);
-    border-style: solid;
-    border-width: 1px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
-    background-clip: padding-box;
-    *border-right-width: 2px;
-    *border-bottom-width: 2px;
+.ui-autocomplete {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	float: left;
+	display: none;
+	min-width: 160px;
+	padding: 4px 0;
+	margin: 0 0 10px 25px;
+	list-style: none;
+	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	*border-right-width: 2px;
+	*border-bottom-width: 2px;
 }
 
-.ui-menu-item > a.ui-corner-all {
-    display: block;
-    padding: 3px 15px;
-    clear: both;
-    font-weight: normal;
-    line-height: 18px;
-    color: #555555;
-    white-space: nowrap;
-    text-decoration: none;
+.ui-menu-item>a.ui-corner-all {
+	display: block;
+	padding: 3px 15px;
+	clear: both;
+	font-weight: normal;
+	line-height: 18px;
+	color: #555555;
+	white-space: nowrap;
+	text-decoration: none;
 }
 
 .ui-state-hover, .ui-state-active {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #0088cc;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    background-image: none;
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #0088cc;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	background-image: none;
 }
 </style>
 <!-- end CSS-->
@@ -119,45 +119,44 @@
 
 <body id="home">
 
-<div id="wrapper">
+	<div id="wrapper">
 
-	<div id="header">
+		<div id="header">
 
-	<!-- header area -->
-	<header class="wrapper clearfix">
+			<!-- header area -->
+			<header class="wrapper clearfix">
 
-		<div id="banner">
-			<div id="logo">
-				<a href="index.jsp"><img src="images/logo.png" alt="logo"></a>
-			</div>
+				<div id="banner">
+					<div id="logo">
+						<a href="index.jsp"><img src="images/logo.png" alt="logo"></a>
+					</div>
+				</div>
+
+				<!-- main navigation -->
+				<nav id="topnav" role="navigation">
+					<div class="menu-toggle">Menu</div>
+					<ul class="srt-menu" id="menu-main-navigation">
+						<li class="current"><a href="index.jsp">Recommender</a></li>
+						<li><a href="settings.jsp">Settings</a></li>
+					</ul>
+				</nav>
+				<!-- end main navigation -->
+
+			</header>
+			<!-- end header -->
+
+
+
+			<section id="page-header" class="clearfix">
+				<div class="wrapper">
+					<h1>Buddy recommender</h1>
+				</div>
+			</section>
 		</div>
-
-		<!-- main navigation -->
-		<nav id="topnav" role="navigation">
-			<div class="menu-toggle">Menu</div>
-			<ul class="srt-menu" id="menu-main-navigation">
-				<li class="current"><a href="index.jsp">Recommender</a></li>
-				<li><a href="settings.jsp">Settings</a></li>
-			</ul>
-		</nav>
-		<!-- end main navigation -->
-
-	</header>
-	<!-- end header -->
-
-
-
-	<section id="page-header" class="clearfix">
-		<div class="wrapper">
-			<h1>Buddy recommender</h1>
-		</div>
-	</section>
-	</div>
 		<!-- main content area -->
 		<div id="main" class="wrapper">
 			<section id="content">
-			 <br />
-				<span id="recommender">
+				<br /> <span id="recommender">
 					<form action="recommender.do" method="post" id="joineeDetailsForm">
 
 						<table>
@@ -187,8 +186,7 @@
 					<div id="responseContent"></div>
 					<div id="dialog" title="Send mail to assigned buddy"></div>
 
-				</span>
-				<span id="trackBuddies">
+				</span> <span id="trackBuddies">
 					<div id="assignedBuddiesContainer"></div>
 				</span>
 			</section>
@@ -198,7 +196,8 @@
 				<h2>Options</h2>
 				<nav id="secondary-navigation">
 					<ul>
-						<li class="current" name="recommender"><a href="#">Buddy recommender</a></li>
+						<li class="current" name="recommender"><a href="#">Buddy
+								recommender</a></li>
 						<li name="trackBuddies"><a href="#">Track buddies</a></li>
 					</ul>
 				</nav>
@@ -210,31 +209,30 @@
 
 
 		<!-- footer area -->
-	<footer>
-		<div id="colophon" class="wrapper clearfix">Buddy recommender
-			app</div>
+		<footer>
+			<div id="colophon" class="wrapper clearfix">Buddy recommender
+				app</div>
 
-		<!--You can NOT remove this attribution statement from any page, unless you get the permission from prowebdesign.ro-->
-		<div id="attribution" class="wrapper clearfix"
-			style="color: #666; font-size: 11px;">
-			Site built with <a
-				href="http://www.prowebdesign.ro/simple-responsive-template/"
-				target="_blank"
-				title="Simple Responsive Template is a free software by www.prowebdesign.ro"
-				style="color: #777;">Simple Responsive Template</a>
-		</div>
-		<!--end attribution-->
+			<!--You can NOT remove this attribution statement from any page, unless you get the permission from prowebdesign.ro-->
+			<div id="attribution" class="wrapper clearfix"
+				style="color: #666; font-size: 11px;">
+				Site built with <a
+					href="http://www.prowebdesign.ro/simple-responsive-template/"
+					target="_blank"
+					title="Simple Responsive Template is a free software by www.prowebdesign.ro"
+					style="color: #777;">Simple Responsive Template</a>
+			</div>
+			<!--end attribution-->
 
-	</footer>
-	<!-- #end footer area -->
-</div>
+		</footer>
+		<!-- #end footer area -->
+	</div>
 
 	<!-- jQuery -->
-	<script
-		src="js/jquery.min.js"></script>
-		<script src="js/jquery.validate.min.js"></script>
-		<script src="js/jquery-ui.js"></script>
-		<link href="css/jquery-ui.css" rel="stylesheet">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<link href="css/jquery-ui.css" rel="stylesheet">
 	<script>
 		window.jQuery
 				|| document
@@ -246,201 +244,7 @@
 
 	<!-- fire ups - read this file!  -->
 	<script src="js/main.js"></script>
-	<script type="text/javascript">
-	
-	function initializeDialogContent()
-	{
-		$.ajax({
-            type: "GET",
-            url: "SendMail.jsp",
-            success: function(msg){
-            	$("#dialog").html(msg);
-            }
-        });
-	}
-	
-	function setupAutocomplete(targetElement, propertyName)
-	{
-		targetElement.autocomplete({
-			source: function(request, response)
-			{
-				$.ajax({
-	                type: "GET",
-	                url: "suggester.do",
-	                data: {
-	                    'property' : propertyName,
-	                    'value' : request.term
-	                },
-	                dataType: "text",
-	                success: function(msg){
-	                	response(eval(msg));
-	                }
-	            });
-			}
-		
-	    });
-		
-	}
-	
-	function initializeAssigneeTrackerTable(containerElementId){
-
-		 $("#"+containerElementId).jtable({
-	            title: 'Assigned buddies',
-	            actions: {
-	                listAction: '/recommender/buddy.do'
-	            },
-	            ajaxSettings: {
-	                contentType: 'application/json'
-	            },
-	            fields: {
-	                buddyId: {
-	                    key: true,
-	                    list: false
-	                },
-	                buddyName: {
-	                    title: 'Buddy Name',
-	                    width: '40%'
-	                },
-	                assigneeName: {
-	                    title: 'Joinee Name',
-	                    width: '20%'
-	                }
-	            },
-	            recordsLoaded: function(event, data) {
-	            	$("#"+containerElementId+" table tr:even").css(
-	    					"background-color", "#f3f3f3");
-	            }
-	        });
-		 
-		 $("#"+containerElementId).jtable("load");	
-		 
-	}
-	
-		$(document).ready(
-				function() {
-					function switchDiv(divId){
-						$("#content span").each(function(index, item){
-							if($(item).prop("id") === divId){
-								$(item).show();
-								$("li[name='"+divId+"']").addClass("current");
-							}
-							else{
-								$(item).hide();
-								$("li[name='"+$(item).prop("id")+"']").removeClass("current");
-							}
-						});
-					}
-					
-					switchDiv("recommender");
-					$("li[name='recommender']").click(function(){
-						switchDiv("recommender");
-					});
-					$("li[name='trackBuddies']").click(function(){
-						switchDiv("trackBuddies");
-						if($('#assignedBuddiesContainer table.jtable').length!=0){
-							$('#assignedBuddiesContainer').jtable("destroy");
-						}
-						initializeAssigneeTrackerTable('assignedBuddiesContainer');
-					});
-					
-					$( "#dialog" ).dialog({
-			               autoOpen: false,
-			               open : initializeDialogContent(),
-			               minWidth: 500
-		            });
-		            
-					$("#suggestBuddies").click(function(){
-						initializeDialogContent();
-					});
-					
-					$("#joineeDetailsForm").validate(
-						      {
-						        rules: 
-						        {
-						          name: 
-							          {
-							            required: true
-							          },
-						          college: 
-						          {
-						            required: true
-						          },
-						          passoutyear: 
-						          {
-						            required: true,
-						            number: true
-						          },
-						          team: 
-						          {
-						            required: true
-						          }
-						        },
-						        messages: 
-						        {
-						          name: 
-							      {
-							         required: "Please enter joinee's name"
-							      },
-						          college: 
-						          {
-						            required: "Please enter joinee's college"
-						          },
-						          passoutyear: 
-						          {
-						            required: "Please enter joinee's year of graduation"
-						          }	,
-						          team: 
-						          {
-						            required: "Please enter joinee's team"
-						          }	
-						        }
-						      });   
-					
-					setupAutocomplete($("#team"), "currentTeam");
-					setupAutocomplete($("#college"), "graduateInstitute");
-					
-					$("#joineeDetailsForm").submit(
-							function() {
-								var url = "recommender.do";
-								if($("#joineeDetailsForm").valid())
-								{
-									$.ajax({
-										type : "POST",
-										url : url,
-										data : $("#joineeDetailsForm").serialize(),
-										success : function(data) {
-											$("#responseContent").html(data);
-											$("#responseContent tr:even").css(
-													"background-color", "#f3f3f3");
-											
-												var assignLinks = $("#responseContent a");
-												for(var i = 0 ; i<assignLinks.length; i++){
-													$(assignLinks[i]).click(function(){
-														$.ajax({
-															type : "POST",
-															url : "emailTemplate.do",
-															data : {joineeName:$("#name").val(), employeeId:$("#responseContent a.open-window").prop("id")},
-															success : function(email) {
-																$("#selectedEmployeeId").val($("a.open-window").prop("id"));
-																$("a.open-window").removeClass("open-window");
-																$("#to").val(email.toAddress);
-																$("#cc").val(email.cc);
-																$("#subject").val(email.subject);
-																$("#mailContent").val(email.emailContent);
-															}
-														})
-													});
-												}
-										}
-									});
-								}
-								
-								return false;
-								
-					});
-					
-				});
-	</script>
+	<script src="js/recommenderHome.js"></script>
 </body>
 </html>
 

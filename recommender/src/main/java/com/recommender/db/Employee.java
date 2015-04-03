@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -18,6 +19,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@EqualsAndHashCode(exclude="id")
 public class Employee
 {
 	public enum CAREER_LEVEL
@@ -54,7 +56,6 @@ public class Employee
 	private String graduateInstitute;
 	private String graduateYear;
 	private String employeeCode;
-	private String jobFunction;
 	private String currentTeam;
 	private String careerLevel;
 	private String emailAddress;

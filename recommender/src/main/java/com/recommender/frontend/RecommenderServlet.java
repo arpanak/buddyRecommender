@@ -2,6 +2,7 @@ package com.recommender.frontend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.cache.ehcache.management.impl.BeanUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestHandler;
@@ -33,6 +37,10 @@ public class RecommenderServlet implements HttpRequestHandler
 	private static final String TEXT_HTML = "text/html";
 	private static final String JOINEE_COLLEGE = "college";
 	private static final String JOINEE_NAME = "name";
+	private static final String OK = "OK";
+	private static final String TOTAL_RECORD_COUNT = "TotalRecordCount";
+	private static final String RECORDS = "Records";
+	private static final String RESULT = "Result";
 
 	@Autowired
 	private RecommenderService recommenderService;
@@ -83,31 +91,28 @@ public class RecommenderServlet implements HttpRequestHandler
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private String getResponseAsString(List<Employee> recommendedEmployees)
 	{
-		String response = "";
+		JSONArray employeeArray = new JSONArray();
 		if (CollectionUtils.isNotEmpty(recommendedEmployees))
 		{
-			response = "<h3>Recommended buddies: </h3><br/>";
-			response += "<table>";
-			response += "<th><td><b>No.</b></td><td><b>Name</b></td><td><b>Current Team</b></td><td><b>Colleges</b></td><td><b>Graduate Year</b></td><td></td></th>";
-			int i = 1;
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{
-				response += "<tr class = \"row\">";
-				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>";
-					//	+ recommendedEmployee.getCurrentTeam() + "</td><td>"
-			//			+ recommendedEmployee.getPostGraduateInstitute()
-				//		+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a id='"+recommendedEmployee.getId()+"' onclick=\"$(this).addClass('open-window');$( '#dialog' ).dialog( 'open' )\" href=\"#\">Assign buddy</a></td>";
-				response += "</tr>";
-				i++;
+				JSONObject employee = new JSONObject();
+				for(Field field : Employee.class.getDeclaredFields())
+				{
+					field.setAccessible(true);
+					String fieldName = field.getName();
+					employee.put(fieldName, BeanUtils.getBeanProperty(recommendedEmployee, fieldName));
+				}
+				employeeArray.add(employee);
 			}
-			response += "</table>";
 		}
-		else
-		{
-			response = "<h3>Recommended employees: </h3><br/><br/>No employees found.";
-		}
-		return response;
+		JSONObject jsonResponse = new JSONObject();
+		jsonResponse.put(RESULT, OK);
+		jsonResponse.put(RECORDS, employeeArray);
+		jsonResponse.put(TOTAL_RECORD_COUNT, employeeArray.size());
+		return jsonResponse.toJSONString();
 	}
 }
