@@ -231,10 +231,10 @@
 
 	<!-- jQuery -->
 	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+		src="js/jquery.min.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery-ui.js"></script>
-		<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+		<link href="css/jquery-ui.css" rel="stylesheet">
 	<script>
 		window.jQuery
 				|| document

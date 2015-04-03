@@ -20,16 +20,20 @@ import com.recommender.services.RecommenderService;
 @Component("uploaderServlet")
 public class Uploader implements HttpRequestHandler
 {
+	private static final String WEB_KIT_FORM_BOUNDARY = "------WebKitFormBoundary";
+	private static final String EMP = "Emp.";
+
 	@Autowired
 	DataImportService dataImportService;
-	
+
 	@Autowired
 	RecommenderService recommenderService;
 
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String csvContent = new String(IOUtils.toByteArray(request.getReader()));
-		csvContent = csvContent.substring(csvContent.indexOf("Name,"));
+		csvContent = csvContent.substring(csvContent.indexOf(EMP),
+				csvContent.indexOf(WEB_KIT_FORM_BOUNDARY, csvContent.indexOf(EMP)));
 		dataImportService.importEmployeeDetails(csvContent);
 		recommenderService.initializeRecommender();
 	}

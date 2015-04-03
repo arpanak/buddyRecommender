@@ -27,10 +27,8 @@ public class DataImportService
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	private String[] csvColumns = new String[] { "name", "gender", "graduateDegree", "graduateStream", "graduateInstitute",
-			"graduateYear", "postGraduateDegree", "postGraduateStream", "postGraduateInstitute", "postGraduateYear",
-			"jobFunction", "currentTeam", "hr", "reportingManager", "seniorManager", "joiningDate",
-			"experienceCalculatedAsOf", "workingWithUsSince", "careerLevel", "currentDesignation" };
+	private String[] csvColumns = new String[] { "employeeCode", "name", "currentTeam", "graduateDegree",
+			"graduateInstitute", "graduateYear", "careerLevel", "emailAddress" };
 
 	public void importEmployeeDetails(String csvFileContents)
 	{

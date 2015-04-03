@@ -17,35 +17,49 @@ import lombok.Data;
  * 
  */
 @Entity
-@Data 
+@Data
 public class Employee
 {
+	public enum CAREER_LEVEL
+	{
+		I1(10),
+		I2(20),
+		I3(30),
+		M1(40),
+		M2(50),
+		M3(60),
+		A1(70),
+		A2(80),
+		A3(90);
+
+		private int value;
+
+		private CAREER_LEVEL(int value)
+		{
+			this.value = value;
+		}
+
+		public int getValue()
+		{
+			return this.value;
+		}
+	}
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 
 	private String name;
-	private String gender;
 	private String graduateDegree;
-	private String graduateStream;
 	private String graduateInstitute;
 	private String graduateYear;
-	private String postGraduateDegree;
-	private String postGraduateStream;
-	private String postGraduateInstitute;
-	private String postGraduateYear;
+	private String employeeCode;
 	private String jobFunction;
 	private String currentTeam;
-	private String hr;
-	private String reportingManager;
-	private String seniorManager;
-	private String joiningDate;
-	private String experienceCalculatedAsOf;
-	private String workingWithUsSince;
 	private String careerLevel;
-	private String currentDesignation;
-	
+	private String emailAddress;
+
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Joinee> assignedJoinees = new ArrayList<Joinee>();
-	
+
 }

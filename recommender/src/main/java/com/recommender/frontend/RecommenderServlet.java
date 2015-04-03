@@ -95,10 +95,10 @@ public class RecommenderServlet implements HttpRequestHandler
 			for (Employee recommendedEmployee : recommendedEmployees)
 			{
 				response += "<tr class = \"row\">";
-				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>"
-						+ recommendedEmployee.getCurrentTeam() + "</td><td>"
-						+ recommendedEmployee.getPostGraduateInstitute()
-						+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a id='"+recommendedEmployee.getId()+"' onclick=\"$(this).addClass('open-window');$( '#dialog' ).dialog( 'open' )\" href=\"#\">Assign buddy</a></td>";
+				response +=  "<td>" + i + "</td><td>" + recommendedEmployee.getName() + "</td><td>";
+					//	+ recommendedEmployee.getCurrentTeam() + "</td><td>"
+			//			+ recommendedEmployee.getPostGraduateInstitute()
+				//		+ "</td><td>" + recommendedEmployee.getPostGraduateYear() + "</td><td><a id='"+recommendedEmployee.getId()+"' onclick=\"$(this).addClass('open-window');$( '#dialog' ).dialog( 'open' )\" href=\"#\">Assign buddy</a></td>";
 				response += "</tr>";
 				i++;
 			}

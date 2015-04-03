@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="js/flexslider/flexslider.css">
 <link rel="stylesheet" href="css/basic-style.css">
-<link href="http://hayageek.github.io/jQuery-Upload-File/uploadfile.min.css" rel="stylesheet">
+<link href="css/uploadfile.min.css" rel="stylesheet">
 <style>
 #sendMail label.error {
 	color: red;
@@ -154,10 +154,10 @@
 
 
 <!-- jQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>')</script>
-<script src="http://hayageek.github.io/jQuery-Upload-File/jquery.uploadfile.min.js"></script>
+<script src="js/jquery.uploadfile.min.js"></script>
 <script defer src="js/flexslider/jquery.flexslider-min.js"></script>
 
 <!-- fire ups - read this file!  -->   
