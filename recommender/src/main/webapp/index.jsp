@@ -234,9 +234,7 @@
 	<script src="js/jquery-ui.js"></script>
 	<link href="css/jquery-ui.css" rel="stylesheet">
 	<script>
-		window.jQuery
-				|| document
-						.write('<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>')
+		window.jQuery || document.write( '<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>' )
 	</script>
 
 	<script defer src="js/flexslider/jquery.flexslider-min.js"></script>
