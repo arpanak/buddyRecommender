@@ -40,17 +40,21 @@ function initializeAssigneeTrackerTable ( containerElementId ) {
 			contentType : 'application/json'
 		},
 		fields : {
-			buddyId : {
+			assigneeId : {
 				key : true,
 				list : false
 			},
 			buddyName : {
 				title : 'Buddy Name',
-				width : '40%'
+				width : '25%'
 			},
 			assigneeName : {
 				title : 'Joinee Name',
-				width : '20%'
+				width : '25%'
+			},
+			buddyAssignedOn : {
+				title : 'Buddy Assigned On',
+				width : '40%'
 			}
 		},
 		recordsLoaded : function ( event, data ) {

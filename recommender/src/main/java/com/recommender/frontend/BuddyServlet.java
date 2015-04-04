@@ -25,6 +25,11 @@ import com.recommender.services.EmployeeService;
 @Component("buddyServlet")
 public class BuddyServlet implements HttpRequestHandler
 {
+	private static final String BUDDY_ASSIGNED_ON = "buddyAssignedOn";
+	private static final String ASSIGNEE_ID = "assigneeId";
+	private static final String ASSIGNEE_NAME = "assigneeName";
+	private static final String BUDDY_NAME = "buddyName";
+	private static final String BUDDY_ID = "buddyId";
 	private static final String OK = "OK";
 	private static final String TOTAL_RECORD_COUNT = "TotalRecordCount";
 	private static final String RECORDS = "Records";
@@ -43,10 +48,11 @@ public class BuddyServlet implements HttpRequestHandler
 			for(Joinee joinee : buddy.getAssignedJoinees())
 			{
 				JSONObject entry = new JSONObject();
-				entry.put("buddyId", buddy.getId());
-				entry.put("buddyName", buddy.getName());
-				entry.put("assigneeName", joinee.getName());
-				entry.put("assigneeId", joinee.getId());
+				entry.put(BUDDY_ID, buddy.getId());
+				entry.put(BUDDY_NAME, buddy.getName());
+				entry.put(ASSIGNEE_NAME, joinee.getName());
+				entry.put(ASSIGNEE_ID, joinee.getId());
+				entry.put(BUDDY_ASSIGNED_ON, joinee.getBuddyAssignedOn().toString());
 				buddyRecords.add(entry);
 			}
 		}

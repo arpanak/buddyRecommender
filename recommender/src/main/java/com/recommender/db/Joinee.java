@@ -1,5 +1,6 @@
 package com.recommender.db;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -35,4 +36,5 @@ public class Joinee
 	private List<String> skills;
 	private int yearOfGraduation;
 	private String team;
+	private Date buddyAssignedOn;
 }

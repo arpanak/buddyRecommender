@@ -53,7 +53,7 @@ public class RecommenderServlet implements HttpRequestHandler
 		String team = request.getParameter(JOINEE_TEAM);
 		int graduationYear = Integer.parseInt(yearOfGraduation);
 
-		Joinee newJoinee = new Joinee(null, name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team);
+		Joinee newJoinee = new Joinee(null, name, "", college, new ArrayList<String>(), new ArrayList<String>(), graduationYear, team, null);
 		request.getSession().setAttribute(JOINEE, newJoinee);
 		
 		getRecommendationsAndReturnResponse(newJoinee, response);

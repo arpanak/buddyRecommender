@@ -1,5 +1,6 @@
 package com.recommender.services;
 
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +71,7 @@ public class AssignmentService
 		{
 			try
 			{
+				joinee.setBuddyAssignedOn(new Date());
 				buddy.getAssignedJoinees().add(joinee);
 				joineeRepository.save(joinee);
 				employeeRepository.save(buddy);
