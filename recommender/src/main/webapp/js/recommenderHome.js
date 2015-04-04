@@ -1,7 +1,7 @@
 function initializeDialogContent () {
 	$.ajax( {
 		type : "GET",
-		url : "SendMail.jsp",
+		url : "SendMail.html",
 		success : function ( msg ) {
 			$( "#dialog" ).html( msg );
 		}
@@ -32,7 +32,7 @@ function setupAutocomplete ( targetElement, propertyName ) {
 function initializeAssigneeTrackerTable ( containerElementId ) {
 
 	$( "#" + containerElementId ).jtable( {
-		title : 'Assigned buddies',
+		title : '<h3>Assigned buddies:</h3>',
 		actions : {
 			listAction : '/recommender/buddy.do'
 		},
@@ -102,23 +102,23 @@ function initializeRecommendedResultsTable ( containerElementId ) {
 			},
 			employeeCode : {
 				title : 'Employee code',
-				width : '10%'
+				width : '20%'
 			},
 			name : {
 				title : 'Buddy Name',
-				width : '35%'
+				width : '20%'
 			},
 			currentTeam : {
 				title : 'Team',
-				width : '35%'
+				width : '20%'
 			},
 			careerLevel : {
 				title : 'Career Level',
-				width : '10%'
+				width : '20%'
 			},
 			RowCheckbox : {
 				title : 'Select Buddy',
-				width : '10%',
+				width : '20%',
 				type : 'checkbox',
 				values : {
 					'false' : 'Passive',
