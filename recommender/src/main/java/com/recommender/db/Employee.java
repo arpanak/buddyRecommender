@@ -22,31 +22,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(exclude="id")
 public class Employee
 {
-	public enum CAREER_LEVEL
-	{
-		I1(10),
-		I2(20),
-		I3(30),
-		M1(40),
-		M2(50),
-		M3(60),
-		A1(70),
-		A2(80),
-		A3(90);
-
-		private int value;
-
-		private CAREER_LEVEL(int value)
-		{
-			this.value = value;
-		}
-
-		public int getValue()
-		{
-			return this.value;
-		}
-	}
-
 	@Id
 	@GeneratedValue
 	private Integer id;

@@ -102,7 +102,7 @@ function initializeRecommendedResultsTable ( containerElementId ) {
 			},
 			employeeCode : {
 				title : 'Employee code',
-				width : '20%'
+				width : '10%'
 			},
 			name : {
 				title : 'Buddy Name',
@@ -112,13 +112,21 @@ function initializeRecommendedResultsTable ( containerElementId ) {
 				title : 'Team',
 				width : '20%'
 			},
+			graduateInstitute : {
+				title : 'College',
+				width : '20%'
+			},
+			graduateYear : {
+				title : 'Graduation Year',
+				width : '10%'
+			},
 			careerLevel : {
 				title : 'Career Level',
-				width : '20%'
+				width : '10%'
 			},
 			RowCheckbox : {
 				title : 'Select Buddy',
-				width : '20%',
+				width : '10%',
 				type : 'checkbox',
 				values : {
 					'false' : 'Passive',
@@ -218,6 +226,9 @@ $( document ).ready( function () {
 			},
 			team : {
 				required : true
+			},
+			careerLevel : {
+				required : true
 			}
 		},
 		messages : {
@@ -232,12 +243,16 @@ $( document ).ready( function () {
 			},
 			team : {
 				required : "Please enter joinee's team"
+			},
+			careerLevel : {
+				required : "Please enter joinee's career level"
 			}
 		}
 	} );
 
 	setupAutocomplete( $( "#team" ), "currentTeam" );
 	setupAutocomplete( $( "#college" ), "graduateInstitute" );
+	setupAutocomplete( $( "#careerLevel" ), "careerLevel" );
 
 	function showRecommendedBuddies () {
 		destroyJtable( 'responseContent' );

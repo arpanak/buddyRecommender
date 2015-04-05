@@ -23,6 +23,11 @@ import com.recommender.utilities.LuceneHelper;
 public class RecommenderService
 {
 
+	private static final String POST_GRADUATE_YEAR = "postGraduateYear";
+	private static final String GRADUATE_YEAR = "graduateYear";
+	private static final String POST_GRADUATE_INSTITUTE = "postGraduateInstitute";
+	private static final String GRADUATE_INSTITUTE = "graduateInstitute";
+	private static final String CURRENT_TEAM = "currentTeam";
 	private static List<Employee> existingEmployees = new ArrayList<Employee>();
 	private static Map<String, Float> propertyName2priority = new HashMap<String, Float>();
 
@@ -35,11 +40,11 @@ public class RecommenderService
 		existingEmployees = employeeService.getAllEmployees();
 		try
 		{
-			propertyName2priority.put("currentTeam", 40f);
-			propertyName2priority.put("graduateInstitute", 20f);
-			propertyName2priority.put("postGraduateInstitute", 20f);
-			propertyName2priority.put("graduateYear", 8f);
-			propertyName2priority.put("postGraduateYear", 8f);
+			propertyName2priority.put(CURRENT_TEAM, 40f);
+			propertyName2priority.put(GRADUATE_INSTITUTE, 20f);
+			propertyName2priority.put(POST_GRADUATE_INSTITUTE, 20f);
+			propertyName2priority.put(GRADUATE_YEAR, 8f);
+			propertyName2priority.put(POST_GRADUATE_YEAR, 8f);
 
 			LuceneHelper.initialize(existingEmployees, propertyName2priority);
 		}
@@ -61,11 +66,11 @@ public class RecommenderService
 		String team = newJoinee.getTeam();
 		String graduationYear = newJoinee.getYearOfGraduation() + "";
 		Map<String, String> filterMap = new HashMap<String, String>();
-		filterMap.put("graduateInstitute", institute);
-		filterMap.put("postGraduateInstitute", institute);
-		filterMap.put("currentTeam", team);
-		filterMap.put("graduateYear", graduationYear);
-		filterMap.put("postGraduateYear", graduationYear);
+		filterMap.put(GRADUATE_INSTITUTE, institute);
+		filterMap.put(POST_GRADUATE_INSTITUTE, institute);
+		filterMap.put(CURRENT_TEAM, team);
+		filterMap.put(GRADUATE_YEAR, graduationYear);
+		filterMap.put(POST_GRADUATE_YEAR, graduationYear);
 		return LuceneHelper.runQuery(filterMap, numRecommendationsRequired);
 	}
 
