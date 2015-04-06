@@ -20,7 +20,7 @@ import com.recommender.services.RecommenderService;
 @Component("uploaderServlet")
 public class Uploader implements HttpRequestHandler
 {
-	private static final String WEB_KIT_FORM_BOUNDARY = "------WebKitFormBoundary";
+	private static final String WEB_KIT_FORM_BOUNDARY = "------";
 	private static final String EMP = "Emp.";
 
 	@Autowired
