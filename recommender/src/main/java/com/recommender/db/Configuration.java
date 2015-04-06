@@ -3,6 +3,7 @@ package com.recommender.db;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import lombok.Data;
 
 /**
@@ -27,6 +28,7 @@ public class Configuration
 	@GeneratedValue
 	private Integer id;
 	private CONFIGURATION_TYPE configurationType;
+	@Lob
 	private String content;
 
 }
