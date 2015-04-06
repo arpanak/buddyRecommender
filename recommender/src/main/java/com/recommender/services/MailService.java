@@ -1,9 +1,12 @@
 package com.recommender.services;
 
+import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import com.recommender.frontend.Email;
 
@@ -16,21 +19,28 @@ import com.recommender.frontend.Email;
 @Service
 public class MailService
 {
+	private static final String TEXT_HTML = "text/html";
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
+	
 	@Autowired(required = true)
-	private MailSender mailSender;
+	private JavaMailSender mailSender;
 
-	public void sendMail(Email email)
+	public void sendMail(Email email) throws Exception
 	{
-		SimpleMailMessage message = new SimpleMailMessage();
-
-		message.setFrom(email.getFrom());
-		message.setTo(email.getTo());
-		if(StringUtils.isNotEmpty(email.getCc()))
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		
+		helper.setFrom(email.getFrom());
+		helper.setTo(email.getTo());
+		if (StringUtils.isNotEmpty(email.getCc()))
 		{
-			message.setCc(email.getCc());
+			helper.setCc(email.getCc());
 		}
-		message.setSubject(email.getSubject());
-		message.setText(email.getMailContent());
+		helper.setSubject(email.getSubject());
+		message.setContent(email.getMailContent(), TEXT_HTML);
+		
 		mailSender.send(message);
+		LOGGER.info("Email successfully dispatched to {}", email.getTo());
 	}
 }

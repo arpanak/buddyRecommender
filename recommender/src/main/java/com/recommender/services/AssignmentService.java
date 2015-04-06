@@ -66,6 +66,7 @@ public class AssignmentService
 		if (assignedJoinees.size() > MAX_ASSIGNEES - 1)
 		{
 			result = ASSIGNMENT_STATUS.BUDDY_CAPACITY_EXCEEDED;
+			LOGGER.warn("Assignment unsuccessful: {} already has {} assignees", buddy.getName(), MAX_ASSIGNEES);
 		}
 		else
 		{
@@ -77,6 +78,7 @@ public class AssignmentService
 				employeeRepository.save(buddy);
 				mailService.sendMail(emailToSend);
 				result = ASSIGNMENT_STATUS.SUCCESS;
+				LOGGER.info("Assignment successful: {} assigned as buddy to {}", buddy.getName(), joinee.getName());
 			}
 			catch (Exception ex)
 			{
