@@ -1,5 +1,6 @@
 $( document ).ready(
 		function () {
+
 			$( "#fileuploader" ).uploadFile(
 					{
 						url : "uploader.do",
@@ -38,6 +39,10 @@ $( document ).ready(
 
 			$( "li[name='configureAssigneeTemplate']" ).click( function () {
 				switchDiv( "configureAssigneeTemplate" );
+				if ( CKEDITOR.instances.mailContent ) {
+					CKEDITOR.instances.mailContent.destroy();
+				}
+				$( '#mailContent' ).ckeditor();
 				$.ajax( {
 					type : "POST",
 					url : "emailTemplate.do",
@@ -47,7 +52,7 @@ $( document ).ready(
 					success : function ( email ) {
 						$( "#cc" ).val( email.cc );
 						$( "#subject" ).val( email.subject );
-						$( "#mailContent" ).val( email.emailContent );
+						$( '#mailContent' ).val( email.emailContent );
 					}
 				} );
 			} );
@@ -80,7 +85,14 @@ $( document ).ready(
 					$.ajax( {
 						type : "POST",
 						url : url,
-						data : $( "#sendMail" ).serialize(),
+						data : {
+							to : $( "#to" ).val(),
+							cc : $( "#cc" ).val(),
+							subject : $( "#subject" ).val(),
+							mailContent : $( '#mailContent' ).val(),
+							selectedEmployeeId : $( "#selectedEmployeeId" ).val(),
+							formType : "saveAssigneeTemplate"
+						},
 						success : function ( data ) {
 							$( "#templateResponse" ).html( data );
 							$( "#submit" ).val( "Save template" );

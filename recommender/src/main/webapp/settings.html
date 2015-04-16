@@ -90,7 +90,6 @@
 
 	<!-- main content area -->
 	<div class="wrapper" id="main">
-
 		<!-- content area -->
 		<section id="content">
 
@@ -117,9 +116,7 @@
 							<td><input type="text" name="subject" id="subject" /></td>
 						</tr>
 					</table>
-					<p>
-						<textarea name="mailContent" id="mailContent" rows=8 cols=50></textarea>
-					</p>
+					<textarea name="mailContent" id="mailContent" rows=8 cols=50></textarea>
 					<p>
 						<input type="submit" id="submit" name="submit"
 							value="Save template" /> <input type="hidden" id="formType"
@@ -177,15 +174,16 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.validate.min.js"></script>
 	<script>
-		window.jQuery
-				|| document
-						.write('<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>')
+		window.jQuery || document.write( '<script src="js/libs/jquery-1.9.0.min.js">\x3C/script>' )
 	</script>
 	<script src="js/jquery.uploadfile.min.js"></script>
 	<script defer src="js/flexslider/jquery.flexslider-min.js"></script>
+	<script src="ckeditor/ckeditor.js"></script>
+	<script src="ckeditor/adapters/jquery.js"></script>
 
 	<!-- fire ups - read this file!  -->
 	<script src="js/main.js"></script>
 	<script src="js/recommenderSettings.js"></script>
+
 </body>
 </html>

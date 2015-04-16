@@ -159,7 +159,7 @@ function initializeRecommendedResultsTable ( containerElementId ) {
 						$( "#to" ).val( email.toAddress );
 						$( "#cc" ).val( email.cc );
 						$( "#subject" ).val( email.subject );
-						$( "#mailContent" ).val( email.emailContent );
+						$( '#mailContent' ).val( email.emailContent );
 						$( '#dialog' ).dialog( 'open' );
 					}
 				} );

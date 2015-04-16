@@ -55,7 +55,13 @@
 				$.ajax( {
 					type : "POST",
 					url : url,
-					data : $( "#sendMail" ).serialize(),
+					data : {
+						to : $( "#to" ).val(),
+						cc : $( "#cc" ).val(),
+						subject : $( "#subject" ).val(),
+						mailContent : $( '#mailContent' ).val(),
+						selectedEmployeeId : $( "#selectedEmployeeId" ).val()
+					},
 					success : function ( data ) {
 						$( "#sendMail" ).parent().html( data );
 					}
@@ -69,6 +75,7 @@
 			return false;
 		} );
 
+		$( '#mailContent' ).ckeditor();
 	} );
 </script>
 
