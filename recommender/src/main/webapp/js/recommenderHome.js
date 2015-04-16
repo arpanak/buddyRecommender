@@ -205,7 +205,7 @@ $( document ).ready( function () {
 	$( "#dialog" ).dialog( {
 		autoOpen : false,
 		open : initializeDialogContent(),
-		minWidth : 500
+		minWidth : 770
 	} );
 
 	$( "#suggestBuddies" ).click( function () {
